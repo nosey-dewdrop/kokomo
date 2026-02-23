@@ -1,6 +1,11 @@
+package panels;
+
+import events.*;
+import screens.*;
+import tools.*;
+
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.time.LocalDateTime;
 
 public class CreateEventPanel extends JPanel {
@@ -20,39 +25,25 @@ public class CreateEventPanel extends JPanel {
         this.home = home;
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
-        setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         buildUI();
     }
 
     private void buildUI() {
-        JPanel form = new JPanel();
-        form.setLayout(new BoxLayout(form, BoxLayout.Y_AXIS));
-        form.setBackground(Color.WHITE);
-        form.setBorder(BorderFactory.createEmptyBorder(28, 56, 20, 56));
+        JPanel form = UIHelper.createPagePanel();
 
-        // Title
-        JLabel pageTitle = new JLabel("New Event");
-        pageTitle.setFont(new Font("SansSerif", Font.BOLD, 32));
-        pageTitle.setForeground(AppConstants.TEXT_PRI);
-        pageTitle.setAlignmentX(LEFT_ALIGNMENT);
-        form.add(pageTitle);
+        form.add(UIHelper.createPageTitle(AppConstants.PAGE_CREATE));
         form.add(Box.createVerticalStrut(4));
-
-        JLabel subTitle = new JLabel("Fill in the details below to create your event.");
-        subTitle.setFont(AppConstants.F_SMALL);
-        subTitle.setForeground(AppConstants.TEXT_SEC);
-        subTitle.setAlignmentX(LEFT_ALIGNMENT);
-        form.add(subTitle);
+        form.add(UIHelper.createSubtitle(AppConstants.PAGE_CREATE_SUB));
         form.add(Box.createVerticalStrut(24));
 
-        // Event Title
-        form.add(createFieldLabel("Event Title"));
-        titleField = createCleanField("Give your event a name...");
+        form.add(createFieldLabel(AppConstants.FIELD_EVENT_TITLE));
+        titleField = UIHelper.createPlaceholderField(AppConstants.PH_EVENT_TITLE);
+        titleField.setAlignmentX(LEFT_ALIGNMENT);
+        titleField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 42));
         form.add(titleField);
         form.add(Box.createVerticalStrut(16));
 
-        // Description
-        form.add(createFieldLabel("Description"));
+        form.add(createFieldLabel(AppConstants.FIELD_DESCRIPTION));
         descArea = new JTextArea(3, 30);
         descArea.setFont(AppConstants.F_NORMAL);
         descArea.setLineWrap(true);
@@ -66,47 +57,36 @@ public class CreateEventPanel extends JPanel {
         form.add(descScroll);
         form.add(Box.createVerticalStrut(16));
 
-        // Location
-        form.add(createFieldLabel("Location"));
-        locationField = createCleanField("Where is it happening?");
+        form.add(createFieldLabel(AppConstants.FIELD_LOCATION));
+        locationField = UIHelper.createPlaceholderField(AppConstants.PH_LOCATION);
+        locationField.setAlignmentX(LEFT_ALIGNMENT);
+        locationField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 42));
         form.add(locationField);
         form.add(Box.createVerticalStrut(16));
 
-        // Poster image
-        form.add(createFieldLabel("Poster Image (optional)"));
+        form.add(createFieldLabel(AppConstants.FIELD_POSTER));
         JPanel imgRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
         imgRow.setBackground(Color.WHITE);
         imgRow.setAlignmentX(LEFT_ALIGNMENT);
-        imageLabel = new JLabel("Auto-generated if empty");
+        imageLabel = new JLabel(AppConstants.PH_AUTO_POSTER);
         imageLabel.setFont(AppConstants.F_TINY);
         imageLabel.setForeground(AppConstants.TEXT_LIGHT);
-        JButton btnImg = UIHelper.createOutlineButton("Choose Image...", AppConstants.TEXT_SEC);
+        JButton btnImg = UIHelper.createOutlineButton(AppConstants.BTN_CHOOSE_IMG, AppConstants.TEXT_SEC);
         btnImg.addActionListener(e -> chooseImage());
         imgRow.add(btnImg);
         imgRow.add(imageLabel);
         form.add(imgRow);
         form.add(Box.createVerticalStrut(20));
 
-        // Separator
-        JSeparator sep1 = new JSeparator();
-        sep1.setForeground(AppConstants.BORDER);
-        sep1.setAlignmentX(LEFT_ALIGNMENT);
-        sep1.setMaximumSize(new Dimension(Integer.MAX_VALUE, 1));
-        form.add(sep1);
+        form.add(UIHelper.createSeparator());
         form.add(Box.createVerticalStrut(16));
 
-        // Date/Time section
-        JLabel dateSec = new JLabel("Date & Time");
-        dateSec.setFont(AppConstants.F_TITLE);
-        dateSec.setForeground(AppConstants.TEXT_PRI);
-        dateSec.setAlignmentX(LEFT_ALIGNMENT);
-        form.add(dateSec);
+        form.add(UIHelper.createSectionLabel(AppConstants.SEC_DATE_TIME));
         form.add(Box.createVerticalStrut(12));
 
         LocalDateTime now = LocalDateTime.now().plusDays(1);
 
-        // Start
-        form.add(createFieldLabel("Start"));
+        form.add(createFieldLabel(AppConstants.FIELD_START));
         JPanel startRow = createDateRow(now, true);
         dayS = (JSpinner) startRow.getClientProperty("day");
         monthS = (JSpinner) startRow.getClientProperty("month");
@@ -116,8 +96,7 @@ public class CreateEventPanel extends JPanel {
         form.add(startRow);
         form.add(Box.createVerticalStrut(10));
 
-        // End
-        form.add(createFieldLabel("End"));
+        form.add(createFieldLabel(AppConstants.FIELD_END));
         JPanel endRow = createDateRow(now, true);
         dayE = (JSpinner) endRow.getClientProperty("day");
         monthE = (JSpinner) endRow.getClientProperty("month");
@@ -128,8 +107,7 @@ public class CreateEventPanel extends JPanel {
         form.add(endRow);
         form.add(Box.createVerticalStrut(10));
 
-        // Deadline
-        form.add(createFieldLabel("Registration Deadline"));
+        form.add(createFieldLabel(AppConstants.FIELD_DEADLINE));
         JPanel deadRow = createDateRow(now, false);
         deadlineDay = (JSpinner) deadRow.getClientProperty("day");
         deadlineMonth = (JSpinner) deadRow.getClientProperty("month");
@@ -137,23 +115,12 @@ public class CreateEventPanel extends JPanel {
         form.add(deadRow);
         form.add(Box.createVerticalStrut(20));
 
-        // Separator
-        JSeparator sep2 = new JSeparator();
-        sep2.setForeground(AppConstants.BORDER);
-        sep2.setAlignmentX(LEFT_ALIGNMENT);
-        sep2.setMaximumSize(new Dimension(Integer.MAX_VALUE, 1));
-        form.add(sep2);
+        form.add(UIHelper.createSeparator());
         form.add(Box.createVerticalStrut(16));
 
-        // Settings section
-        JLabel settingsSec = new JLabel("Settings");
-        settingsSec.setFont(AppConstants.F_TITLE);
-        settingsSec.setForeground(AppConstants.TEXT_PRI);
-        settingsSec.setAlignmentX(LEFT_ALIGNMENT);
-        form.add(settingsSec);
+        form.add(UIHelper.createSectionLabel(AppConstants.SEC_SETTINGS));
         form.add(Box.createVerticalStrut(12));
 
-        // Two-column: Capacity + XP
         JPanel twoCol = new JPanel(new GridLayout(1, 2, 24, 0));
         twoCol.setBackground(Color.WHITE);
         twoCol.setAlignmentX(LEFT_ALIGNMENT);
@@ -162,7 +129,7 @@ public class CreateEventPanel extends JPanel {
         JPanel capPanel = new JPanel();
         capPanel.setLayout(new BoxLayout(capPanel, BoxLayout.Y_AXIS));
         capPanel.setOpaque(false);
-        capPanel.add(createFieldLabel("Capacity"));
+        capPanel.add(createFieldLabel(AppConstants.FIELD_CAPACITY));
         capacitySpin = new JSpinner(new SpinnerNumberModel(
             AppConstants.DEFAULT_CAPACITY, AppConstants.MIN_CAPACITY, AppConstants.MAX_CAPACITY, AppConstants.CAPACITY_STEP));
         capacitySpin.setAlignmentX(LEFT_ALIGNMENT);
@@ -172,7 +139,7 @@ public class CreateEventPanel extends JPanel {
         JPanel xpPanel = new JPanel();
         xpPanel.setLayout(new BoxLayout(xpPanel, BoxLayout.Y_AXIS));
         xpPanel.setOpaque(false);
-        xpPanel.add(createFieldLabel("XP Reward"));
+        xpPanel.add(createFieldLabel(AppConstants.FIELD_XP_REWARD));
         xpSpin = new JSpinner(new SpinnerNumberModel(
             AppConstants.DEFAULT_EVENT_XP, AppConstants.MIN_EVENT_XP, AppConstants.MAX_EVENT_XP, 5));
         xpSpin.setAlignmentX(LEFT_ALIGNMENT);
@@ -182,8 +149,7 @@ public class CreateEventPanel extends JPanel {
         form.add(twoCol);
         form.add(Box.createVerticalStrut(12));
 
-        // Tier
-        form.add(createFieldLabel("Minimum Tier Required"));
+        form.add(createFieldLabel(AppConstants.FIELD_MIN_TIER));
         String[] tierOptions = new String[AppConstants.TIER_NAMES.length + 1];
         tierOptions[0] = "Anyone";
         for (int i = 0; i < AppConstants.TIER_NAMES.length; i++)
@@ -195,24 +161,21 @@ public class CreateEventPanel extends JPanel {
         form.add(tierCombo);
         form.add(Box.createVerticalStrut(12));
 
-        // Tags
-        form.add(createFieldLabel("Tags (comma separated)"));
-        tagsField = createCleanField("software, music, sports...");
+        form.add(createFieldLabel(AppConstants.FIELD_TAGS));
+        tagsField = UIHelper.createPlaceholderField(AppConstants.PH_TAGS);
+        tagsField.setAlignmentX(LEFT_ALIGNMENT);
+        tagsField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 42));
         form.add(tagsField);
         form.add(Box.createVerticalStrut(24));
 
-        // Submit button
-        JButton btnCreate = UIHelper.createButton("Create Event", AppConstants.PRIMARY, Color.WHITE);
+        JButton btnCreate = UIHelper.createButton(AppConstants.BTN_CREATE, AppConstants.PRIMARY, Color.WHITE);
         btnCreate.setAlignmentX(LEFT_ALIGNMENT);
-        btnCreate.setMaximumSize(new Dimension(200, 40));
+        btnCreate.setMaximumSize(new Dimension(200, 44));
         btnCreate.addActionListener(e -> handleCreate());
         form.add(btnCreate);
         form.add(Box.createVerticalStrut(20));
 
-        JScrollPane scroll = new JScrollPane(form);
-        scroll.setBorder(null);
-        scroll.getVerticalScrollBar().setUnitIncrement(16);
-        add(scroll, BorderLayout.CENTER);
+        add(UIHelper.wrapInScroll(form), BorderLayout.CENTER);
     }
 
     private JPanel createDateRow(LocalDateTime now, boolean withTime) {
@@ -242,41 +205,7 @@ public class CreateEventPanel extends JPanel {
             row.putClientProperty("hour", hour);
             row.putClientProperty("min", min);
         }
-
         return row;
-    }
-
-    private JTextField createCleanField(String placeholder) {
-        JTextField f = new JTextField();
-        f.setFont(AppConstants.F_NORMAL);
-        f.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(AppConstants.BORDER, 1, true),
-            BorderFactory.createEmptyBorder(8, 12, 8, 12)));
-        f.setAlignmentX(LEFT_ALIGNMENT);
-        f.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
-
-        f.setForeground(AppConstants.TEXT_LIGHT);
-        f.setText(placeholder);
-        f.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent e) {
-                if (f.getText().equals(placeholder)) {
-                    f.setText("");
-                    f.setForeground(AppConstants.TEXT_PRI);
-                }
-            }
-            public void focusLost(java.awt.event.FocusEvent e) {
-                if (f.getText().isEmpty()) {
-                    f.setText(placeholder);
-                    f.setForeground(AppConstants.TEXT_LIGHT);
-                }
-            }
-        });
-        return f;
-    }
-
-    private String getFieldText(JTextField field, String placeholder) {
-        String text = field.getText().trim();
-        return text.equals(placeholder) ? "" : text;
     }
 
     private void chooseImage() {
@@ -290,10 +219,10 @@ public class CreateEventPanel extends JPanel {
     }
 
     private void handleCreate() {
-        String t = getFieldText(titleField, "Give your event a name...");
-        if (t.isEmpty()) { UIHelper.showError(this, "Event title is required!"); return; }
-        String loc = getFieldText(locationField, "Where is it happening?");
-        if (loc.isEmpty()) { UIHelper.showError(this, "Location is required!"); return; }
+        String t = UIHelper.getFieldText(titleField, AppConstants.PH_EVENT_TITLE);
+        if (t.isEmpty()) { UIHelper.showError(this, AppConstants.ERR_TITLE_REQUIRED); return; }
+        String loc = UIHelper.getFieldText(locationField, AppConstants.PH_LOCATION);
+        if (loc.isEmpty()) { UIHelper.showError(this, AppConstants.ERR_LOC_REQUIRED); return; }
 
         try {
             LocalDateTime start = LocalDateTime.of((int) yearS.getValue(), (int) monthS.getValue(),
@@ -309,7 +238,7 @@ public class CreateEventPanel extends JPanel {
             ev.setXpReward((int) xpSpin.getValue());
             ev.setMinTierIndex(tierCombo.getSelectedIndex());
 
-            String tags = getFieldText(tagsField, "software, music, sports...");
+            String tags = UIHelper.getFieldText(tagsField, AppConstants.PH_TAGS);
             if (!tags.isEmpty()) {
                 for (String tag : tags.split(",")) {
                     String trimmed = tag.trim().toLowerCase();
@@ -326,15 +255,16 @@ public class CreateEventPanel extends JPanel {
             ev.setId(id);
             Database.addXP(MainFile.currentUser.getUsername(), AppConstants.XP_CREATE_EVENT);
 
+            String notifMsg = String.format(AppConstants.NOTIF_NEW_EVENT,
+                MainFile.currentUser.getDisplayName(), t);
             for (String follower : MainFile.currentUser.getFollowers()) {
-                Database.addNotification(follower,
-                    MainFile.currentUser.getDisplayName() + " created a new event: " + t);
+                Database.addNotification(follower, notifMsg);
             }
 
-            UIHelper.showSuccess(this, "Event created!");
+            UIHelper.showSuccess(this, AppConstants.SUC_EVENT_CREATED);
             home.showFeed();
         } catch (Exception ex) {
-            UIHelper.showError(this, "Invalid date! Please check your input.");
+            UIHelper.showError(this, AppConstants.ERR_INVALID_DATE);
         }
     }
 

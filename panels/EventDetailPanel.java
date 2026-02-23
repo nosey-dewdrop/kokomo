@@ -1,3 +1,9 @@
+package panels;
+
+import events.*;
+import screens.*;
+import tools.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -19,7 +25,7 @@ public class EventDetailPanel extends JPanel {
     private JScrollPane createBody() {
         JPanel body = UIHelper.createPagePanel();
 
-        JButton btnBack = new JButton("\u2190  Back");
+        JButton btnBack = new JButton(AppConstants.BTN_BACK);
         btnBack.setFont(AppConstants.F_SMALL);
         btnBack.setForeground(AppConstants.TEXT_SEC);
         btnBack.setBorderPainted(false);
@@ -72,13 +78,13 @@ public class EventDetailPanel extends JPanel {
         body.add(Box.createVerticalStrut(10));
 
         if (event.getCreatorUsername().equals(MainFile.currentUser.getUsername())) {
-            JButton btnDel = UIHelper.createOutlineButton("Delete Event", AppConstants.DANGER);
+            JButton btnDel = UIHelper.createOutlineButton(AppConstants.BTN_DELETE, AppConstants.DANGER);
             btnDel.setAlignmentX(LEFT_ALIGNMENT);
             btnDel.addActionListener(ev -> {
-                if (UIHelper.showConfirm(this, "Are you sure you want to delete this event?")) {
+                if (UIHelper.showConfirm(this, AppConstants.CONFIRM_DELETE)) {
                     Database.deleteFromDatabase(event);
                     Database.addXP(MainFile.currentUser.getUsername(), AppConstants.XP_CANCEL_EVENT);
-                    UIHelper.showSuccess(this, "Event deleted.");
+                    UIHelper.showSuccess(this, AppConstants.SUC_EVENT_DELETED);
                     homeScreen.showFeed();
                 }
             });
@@ -125,7 +131,7 @@ public class EventDetailPanel extends JPanel {
         section.setOpaque(false);
         section.setAlignmentX(LEFT_ALIGNMENT);
 
-        section.add(UIHelper.createSectionLabel("Your Status"));
+        section.add(UIHelper.createSectionLabel(AppConstants.SEC_YOUR_STATUS));
         section.add(Box.createVerticalStrut(12));
 
         JPanel btnRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
@@ -136,18 +142,18 @@ public class EventDetailPanel extends JPanel {
         AttendanceStatus current = event.getAttendanceStatus(me);
         boolean deadlinePassed = event.isDeadlinePassed();
 
-        JButton btnGo = createStatusBtn("Going", AppConstants.SUCCESS, current == AttendanceStatus.GOING);
+        JButton btnGo = createStatusBtn(AppConstants.BTN_GOING, AppConstants.COLOR_GOING, current == AttendanceStatus.GOING);
         btnGo.addActionListener(e -> {
-            if (deadlinePassed) { UIHelper.showError(this, "Registration closed!"); return; }
+            if (deadlinePassed) { UIHelper.showError(this, AppConstants.ERR_DEADLINE_PASSED); return; }
             if (!event.canJoin(Database.getUserXP(me))) { UIHelper.showError(this, "You need " + event.getMinTierName() + " tier!"); return; }
             homeScreen.changeAttendance(event, AttendanceStatus.GOING);
             homeScreen.showEventDetail(event);
         });
 
-        JButton btnInt = createStatusBtn("Interested", AppConstants.INTERESTED, current == AttendanceStatus.INTERESTED);
+        JButton btnInt = createStatusBtn(AppConstants.BTN_INTERESTED, AppConstants.COLOR_INTERESTED, current == AttendanceStatus.INTERESTED);
         btnInt.addActionListener(e -> { homeScreen.changeAttendance(event, AttendanceStatus.INTERESTED); homeScreen.showEventDetail(event); });
 
-        JButton btnMay = createStatusBtn("Maybe", AppConstants.MAYBE_COLOR, current == AttendanceStatus.MAYBE);
+        JButton btnMay = createStatusBtn(AppConstants.BTN_MAYBE, AppConstants.COLOR_MAYBE, current == AttendanceStatus.MAYBE);
         btnMay.addActionListener(e -> { homeScreen.changeAttendance(event, AttendanceStatus.MAYBE); homeScreen.showEventDetail(event); });
 
         btnRow.add(btnGo);
@@ -155,7 +161,7 @@ public class EventDetailPanel extends JPanel {
         btnRow.add(btnMay);
 
         if (current != null) {
-            JButton btnCancel = UIHelper.createOutlineButton("Cancel", AppConstants.DANGER);
+            JButton btnCancel = UIHelper.createOutlineButton(AppConstants.BTN_CANCEL, AppConstants.DANGER);
             btnCancel.addActionListener(e -> { homeScreen.changeAttendance(event, null); homeScreen.showEventDetail(event); });
             btnRow.add(btnCancel);
         }
@@ -177,10 +183,10 @@ public class EventDetailPanel extends JPanel {
         JPanel headerRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 12, 0));
         headerRow.setOpaque(false);
         headerRow.setAlignmentX(LEFT_ALIGNMENT);
-        headerRow.add(UIHelper.createSectionLabel("Attendees"));
-        headerRow.add(UIHelper.createBadgeLabel(event.getGoingCount() + " Going", AppConstants.SUCCESS, Color.WHITE));
+        headerRow.add(UIHelper.createSectionLabel(AppConstants.SEC_ATTENDEES));
+        headerRow.add(UIHelper.createBadgeLabel(event.getGoingCount() + " " + AppConstants.BTN_GOING, AppConstants.COLOR_GOING, Color.WHITE));
         if (event.getInterestedCount() > 0)
-            headerRow.add(UIHelper.createBadgeLabel(event.getInterestedCount() + " Interested", AppConstants.INTERESTED, Color.WHITE));
+            headerRow.add(UIHelper.createBadgeLabel(event.getInterestedCount() + " " + AppConstants.BTN_INTERESTED, AppConstants.COLOR_INTERESTED, Color.WHITE));
         section.add(headerRow);
         section.add(Box.createVerticalStrut(10));
 
@@ -188,7 +194,7 @@ public class EventDetailPanel extends JPanel {
         list.setOpaque(false);
         list.setAlignmentX(LEFT_ALIGNMENT);
         if (event.getAttendees().isEmpty()) {
-            list.add(UIHelper.createSmallLabel("No attendees yet"));
+            list.add(UIHelper.createSmallLabel(AppConstants.EMPTY_ATTENDEES));
         } else {
             for (String uname : event.getAttendees()) {
                 User u = Database.getUserWithUsername(uname);
@@ -205,7 +211,7 @@ public class EventDetailPanel extends JPanel {
         section.setOpaque(false);
         section.setAlignmentX(LEFT_ALIGNMENT);
 
-        section.add(UIHelper.createSectionLabel("Comments (" + event.getComments().size() + ")"));
+        section.add(UIHelper.createSectionLabel(AppConstants.SEC_COMMENTS + " (" + event.getComments().size() + ")"));
         section.add(Box.createVerticalStrut(12));
         section.add(createCommentInput(0));
         section.add(Box.createVerticalStrut(14));
@@ -214,7 +220,7 @@ public class EventDetailPanel extends JPanel {
             .filter(c -> !c.isReply()).collect(Collectors.toCollection(ArrayList::new));
 
         if (topLevel.isEmpty()) {
-            section.add(UIHelper.createSmallLabel("No comments yet. Be the first!"));
+            section.add(UIHelper.createSmallLabel(AppConstants.EMPTY_COMMENTS));
         } else {
             for (Comment c : topLevel) {
                 section.add(createCommentRow(c, 0));
@@ -271,10 +277,10 @@ public class EventDetailPanel extends JPanel {
         row.add(content, BorderLayout.CENTER);
 
         if (indent == 0) {
-            JButton btnReply = UIHelper.createOutlineButton("Reply", AppConstants.TEXT_SEC);
+            JButton btnReply = UIHelper.createOutlineButton(AppConstants.BTN_REPLY, AppConstants.TEXT_SEC);
             btnReply.addActionListener(e -> {
                 String reply = JOptionPane.showInputDialog(this,
-                    "Reply to @" + comment.getUsername() + ":", "Reply", JOptionPane.PLAIN_MESSAGE);
+                    "Reply to @" + comment.getUsername() + ":", AppConstants.DLG_REPLY, JOptionPane.PLAIN_MESSAGE);
                 if (reply != null && !reply.trim().isEmpty()) {
                     homeScreen.addComment(event, reply.trim(), comment.getId());
                     homeScreen.showEventDetail(event);
@@ -292,7 +298,7 @@ public class EventDetailPanel extends JPanel {
         panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 42));
 
         JTextField field = UIHelper.createStyledField();
-        JButton btnSend = UIHelper.createButton("Send", AppConstants.PRIMARY, Color.WHITE);
+        JButton btnSend = UIHelper.createButton(AppConstants.BTN_SEND, AppConstants.PRIMARY, Color.WHITE);
 
         Runnable send = () -> {
             String text = field.getText().trim();

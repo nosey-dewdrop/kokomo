@@ -1,3 +1,9 @@
+package panels;
+
+import events.*;
+import screens.*;
+import tools.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -10,34 +16,22 @@ public class DiscoverPanel extends JPanel {
         this.home = home;
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
-        setBorder(BorderFactory.createEmptyBorder(32, 48, 20, 48));
         buildUI();
     }
 
     private void buildUI() {
-        JPanel content = new JPanel();
-        content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-        content.setBackground(Color.WHITE);
+        JPanel content = UIHelper.createPagePanel();
 
-        JLabel title = new JLabel("Discover");
-        title.setFont(new Font("SansSerif", Font.BOLD, 28));
-        title.setAlignmentX(LEFT_ALIGNMENT);
-        content.add(title);
+        content.add(UIHelper.createPageTitle(AppConstants.PAGE_DISCOVER));
         content.add(Box.createVerticalStrut(4));
+        content.add(UIHelper.createSubtitle(AppConstants.PAGE_DISCOVER_SUB));
+        content.add(Box.createVerticalStrut(20));
 
-        JLabel sub = new JLabel("Trending events and personalized recommendations.");
-        sub.setFont(AppConstants.F_SMALL);
-        sub.setForeground(AppConstants.TEXT_SEC);
-        sub.setAlignmentX(LEFT_ALIGNMENT);
-        content.add(sub);
-        content.add(Box.createVerticalStrut(16));
-
-        // Trending
-        content.add(UIHelper.createSectionLabel("Trending"));
-        content.add(Box.createVerticalStrut(6));
+        content.add(UIHelper.createSectionLabel(AppConstants.SEC_TRENDING));
+        content.add(Box.createVerticalStrut(8));
         ArrayList<Integer> popularIds = Database.getPopularEventIds(AppConstants.DISCOVER_LIMIT);
         if (popularIds.isEmpty()) {
-            content.add(UIHelper.createSmallLabel("No trending events yet."));
+            content.add(UIHelper.createSmallLabel(AppConstants.EMPTY_TRENDING));
         } else {
             ArrayList<Event> allEvents = Database.getAllEvents();
             for (int id : popularIds) {
@@ -50,20 +44,16 @@ public class DiscoverPanel extends JPanel {
             }
         }
 
+        content.add(Box.createVerticalStrut(20));
+        content.add(UIHelper.createSeparator());
         content.add(Box.createVerticalStrut(16));
-        JSeparator sep = new JSeparator();
-        sep.setForeground(AppConstants.BORDER);
-        sep.setAlignmentX(LEFT_ALIGNMENT);
-        content.add(sep);
-        content.add(Box.createVerticalStrut(12));
 
-        // For You
-        content.add(UIHelper.createSectionLabel("For You"));
-        content.add(Box.createVerticalStrut(6));
+        content.add(UIHelper.createSectionLabel(AppConstants.SEC_FOR_YOU));
+        content.add(Box.createVerticalStrut(8));
         ArrayList<Integer> recIds = Database.getRecommendedEventIds(
             MainFile.currentUser.getUsername(), AppConstants.DISCOVER_LIMIT);
         if (recIds.isEmpty()) {
-            content.add(UIHelper.createSmallLabel("No recommendations. Try adding more interests!"));
+            content.add(UIHelper.createSmallLabel(AppConstants.EMPTY_RECOMMEND));
         } else {
             ArrayList<Event> allEvents = Database.getAllEvents();
             for (int id : recIds) {
@@ -76,10 +66,7 @@ public class DiscoverPanel extends JPanel {
             }
         }
 
-        JScrollPane scroll = new JScrollPane(content);
-        scroll.setBorder(null);
-        scroll.getVerticalScrollBar().setUnitIncrement(16);
-        add(scroll, BorderLayout.CENTER);
+        add(UIHelper.wrapInScroll(content), BorderLayout.CENTER);
     }
 
     private JPanel createEventRow(Event ev) {
@@ -87,8 +74,8 @@ public class DiscoverPanel extends JPanel {
         row.setBackground(Color.WHITE);
         row.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createMatteBorder(0, 0, 1, 0, AppConstants.BORDER),
-            BorderFactory.createEmptyBorder(8, 4, 8, 4)));
-        row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));
+            BorderFactory.createEmptyBorder(10, 4, 10, 4)));
+        row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 64));
         row.setAlignmentX(LEFT_ALIGNMENT);
 
         JPanel info = new JPanel();
@@ -103,7 +90,7 @@ public class DiscoverPanel extends JPanel {
         info.add(detail);
         row.add(info, BorderLayout.CENTER);
 
-        JButton view = UIHelper.createOutlineButton("View", AppConstants.ACCENT);
+        JButton view = UIHelper.createOutlineButton(AppConstants.BTN_VIEW, AppConstants.ACCENT);
         view.addActionListener(e -> home.showEventDetail(ev));
         row.add(view, BorderLayout.EAST);
 
