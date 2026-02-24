@@ -119,7 +119,7 @@ public class RegisterScreen extends JPanel {
                 "Bilkent " + displayName + " club");
         } else {
             newUser = new User(username, displayName, email, hashed, salt,
-                "League of Bilkent user");
+                "Squirrel user");
         }
         newUser.setVerified(true);
         Database.addToDatabase(newUser);

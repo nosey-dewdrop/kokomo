@@ -44,15 +44,15 @@ public class EmailSender {
     }
 
     public static boolean sendVerificationEmail(String toEmail, int code) {
-        String subject = "League of Bilkent - Email Verification";
-        String body = "Welcome to League of Bilkent!\n\n"
+        String subject = "Squirrel - Email Verification";
+        String body = "Welcome to Squirrel!\n\n"
                 + "Your verification code: " + code + "\n\n"
                 + "Enter this code on the registration screen.";
         return sendEmail(toEmail, subject, body);
     }
 
     public static boolean sendPasswordResetEmail(String toEmail, int code) {
-        String subject = "League of Bilkent - Password Reset";
+        String subject = "Squirrel - Password Reset";
         String body = "Your password reset request has been received.\n\n"
                 + "Your reset code: " + code + "\n\n"
                 + "Enter this code on the password reset screen.";
@@ -80,7 +80,7 @@ public class EmailSender {
 
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(SENDER_EMAIL, "League of Bilkent"));
+            message.setFrom(new InternetAddress(SENDER_EMAIL, "Squirrel"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
             message.setSubject(subject);
             message.setText(body);

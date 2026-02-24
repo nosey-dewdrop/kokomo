@@ -1,4 +1,4 @@
-# How to Use — League of Bilkent
+# How to Use — Squirrel
 
 ## What You Need
 
@@ -21,7 +21,7 @@ If any of these fail, install them first:
 
 ## Step 1: Set Up the Database
 
-League of Bilkent uses **MySQL** as its database. MySQL is a relational database — it stores data in tables with rows and columns. The app creates the following tables automatically on first run:
+Squirrel uses **MySQL** as its database. MySQL is a relational database — it stores data in tables with rows and columns. The app creates the following tables automatically on first run:
 
 | Table | What it stores |
 |-------|---------------|
@@ -44,7 +44,7 @@ mysql -u root -p
 
 Enter your MySQL root password when prompted. Then type:
 ```sql
-CREATE DATABASE IF NOT EXISTS league_of_bilkent;
+CREATE DATABASE IF NOT EXISTS squirrel_db;
 EXIT;
 ```
 
@@ -52,7 +52,7 @@ EXIT;
 
 Open `model/AppConstants.java` and check these lines:
 ```java
-public static final String DB_URL  = "jdbc:mysql://localhost:3306/league_of_bilkent";
+public static final String DB_URL  = "jdbc:mysql://localhost:3306/squirrel_db";
 public static final String DB_USER = "root";
 public static final String DB_PASS = "";
 ```

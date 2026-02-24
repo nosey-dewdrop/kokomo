@@ -19,7 +19,7 @@ public class HomeScreen extends JFrame {
     private JTextField topSearchField;
 
     public HomeScreen() {
-        setTitle("League of Bilkent - " + MainFile.currentUser.getDisplayName());
+        setTitle("Squirrel - " + MainFile.currentUser.getDisplayName());
         setSize(AppConstants.WINDOW_WIDTH, AppConstants.WINDOW_HEIGHT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -76,7 +76,7 @@ public class HomeScreen extends JFrame {
         nav.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, AppConstants.BORDER));
 
         nav.add(Box.createVerticalStrut(18));
-        JLabel logo = new JLabel("League of Bilkent");
+        JLabel logo = new JLabel("Squirrel");
         logo.setFont(new Font("SansSerif", Font.BOLD, 15));
         logo.setForeground(AppConstants.TEXT_PRI);
         logo.setAlignmentX(Component.CENTER_ALIGNMENT);

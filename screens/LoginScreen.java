@@ -17,7 +17,7 @@ public class LoginScreen extends JFrame {
     private ArrayList<User> users;
 
     public LoginScreen() {
-        setTitle("League of Bilkent");
+        setTitle("Squirrel");
         setSize(AppConstants.LOGIN_WIDTH, AppConstants.LOGIN_HEIGHT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -40,7 +40,7 @@ public class LoginScreen extends JFrame {
         center.setBackground(Color.WHITE);
         center.setBorder(BorderFactory.createEmptyBorder(60, 60, 40, 60));
 
-        JLabel titleLbl = new JLabel("League of Bilkent");
+        JLabel titleLbl = new JLabel("Squirrel");
         titleLbl.setFont(new Font("SansSerif", Font.BOLD, 24));
         titleLbl.setForeground(AppConstants.TEXT_PRI);
         titleLbl.setAlignmentX(LEFT_ALIGNMENT);

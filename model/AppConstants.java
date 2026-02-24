@@ -24,13 +24,13 @@ public class AppConstants {
     public static final Color TEXT_LIGHT    = new Color(0xB0, 0xB0, 0xAC);
 
     // FONTS - Bigger and cleaner
-    public static final Font F_HERO    = new Font("SansSerif", Font.BOLD, 36);
-    public static final Font F_BIG     = new Font("SansSerif", Font.BOLD, 30);
-    public static final Font F_TITLE   = new Font("SansSerif", Font.BOLD, 20);
-    public static final Font F_SECTION = new Font("SansSerif", Font.BOLD, 15);
-    public static final Font F_NORMAL  = new Font("SansSerif", Font.PLAIN, 14);
-    public static final Font F_SMALL   = new Font("SansSerif", Font.PLAIN, 13);
-    public static final Font F_TINY    = new Font("SansSerif", Font.PLAIN, 12);
+    public static final Font F_HERO    = new Font("SansSerif", Font.BOLD, 28);
+    public static final Font F_BIG     = new Font("SansSerif", Font.BOLD, 22);
+    public static final Font F_TITLE   = new Font("SansSerif", Font.BOLD, 17);
+    public static final Font F_SECTION = new Font("SansSerif", Font.BOLD, 14);
+    public static final Font F_NORMAL  = new Font("SansSerif", Font.PLAIN, 11);
+    public static final Font F_SMALL   = new Font("SansSerif", Font.PLAIN, 11);
+    public static final Font F_TINY    = new Font("SansSerif", Font.PLAIN, 11);
 
     // UI - More spacious
     public static final int NAV_WIDTH = 230;
@@ -90,7 +90,7 @@ public class AppConstants {
     public static final int MAX_EVENT_XP           = 100;
 
     // DATABASE
-    public static final String DB_URL  = "jdbc:mysql://localhost:3306/league_of_bilkent";
+    public static final String DB_URL  = "jdbc:mysql://localhost:3306/squirrel_db";
     public static final String DB_USER = "root";
     public static final String DB_PASS = "";
 
@@ -123,7 +123,7 @@ public class AppConstants {
     public static final double EVENT_SCORE_MIN_ATTENDEES  = 1;
 
     // ============ UI STRINGS ============
-    public static final String APP_NAME = "League of Bilkent";
+    public static final String APP_NAME = "Squirrel";
 
     // Page titles
     public static final String PAGE_FEED = "Events";
@@ -248,7 +248,7 @@ public class AppConstants {
     public static final String NOTIF_FOLLOW = "%s started following you!";
 
     // Login labels
-    public static final String LOGIN_TITLE = "League of Bilkent";
+    public static final String LOGIN_TITLE = "Squirrel";
     public static final String LOGIN_SUBTITLE = "Sign in to continue";
     public static final String LABEL_USERNAME = "Username";
     public static final String LABEL_PASSWORD = "Password";

@@ -1,4 +1,4 @@
-# League of Bilkent
+# Squirrel
 
 A campus event management platform for Bilkent University students. Clubs and individuals can create events, RSVP, follow each other, and engage in discussions.
 
@@ -23,7 +23,7 @@ A campus event management platform for Bilkent University students. Clubs and in
 
 ### 1. Create the database
 ```
-mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS league_of_bilkent;"
+mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS squirrel_db;"
 ```
 
 ### 2. Compile
