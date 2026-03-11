@@ -5,29 +5,29 @@ import java.awt.Font;
 
 public class AppConstants {
 
-    // COLORS - Lulu Whimsical 🦋
-    public static final Color PRIMARY       = new Color(0x4A, 0x3B, 0x6B);
-    public static final Color PRIMARY_LIGHT = new Color(0xF3, 0xEE, 0xFF);
-    public static final Color ACCENT        = new Color(0xC5, 0x6C, 0xF0);
-    public static final Color ACCENT_DARK   = new Color(0xA8, 0x55, 0xC7);
-    public static final Color SUCCESS       = new Color(0x7B, 0xC6, 0x7E);
-    public static final Color DANGER        = new Color(0xFF, 0x6B, 0x8A);
-    public static final Color WARNING       = new Color(0xFF, 0xB3, 0x47);
-    public static final Color INTERESTED    = new Color(0xB3, 0x88, 0xFF);
-    public static final Color MAYBE_COLOR   = new Color(0xFF, 0x9A, 0xA2);
-    public static final Color BG_DARK       = new Color(0xFD, 0xFA, 0xFF);
-    public static final Color BG_CARD       = new Color(0xFF, 0xFB, 0xFE);
-    public static final Color BG_NAV        = new Color(0xF5, 0xEE, 0xFF);
-    public static final Color BORDER        = new Color(0xE8, 0xDE, 0xFF);
-    public static final Color TEXT_PRI      = new Color(0x3D, 0x2C, 0x5E);
-    public static final Color TEXT_SEC      = new Color(0x7E, 0x6B, 0x9E);
-    public static final Color TEXT_LIGHT    = new Color(0xB8, 0xA9, 0xD4);
+    // COLORS - Notion Style
+    public static final Color PRIMARY       = new Color(0x37, 0x35, 0x2F);
+    public static final Color PRIMARY_LIGHT = new Color(0xF7, 0xF6, 0xF3);
+    public static final Color ACCENT        = new Color(0x23, 0x83, 0xE2);
+    public static final Color ACCENT_DARK   = new Color(0x1B, 0x6E, 0xC2);
+    public static final Color SUCCESS       = new Color(0x0F, 0x7B, 0x6C);
+    public static final Color DANGER        = new Color(0xEB, 0x57, 0x57);
+    public static final Color WARNING       = new Color(0xCB, 0x91, 0x2F);
+    public static final Color INTERESTED    = new Color(0x91, 0x65, 0xB8);
+    public static final Color MAYBE_COLOR   = new Color(0xD9, 0x73, 0x0D);
+    public static final Color BG_DARK       = Color.WHITE;
+    public static final Color BG_CARD       = Color.WHITE;
+    public static final Color BG_NAV        = new Color(0xFB, 0xFB, 0xFA);
+    public static final Color BORDER        = new Color(0xE8, 0xE8, 0xE5);
+    public static final Color TEXT_PRI      = new Color(0x37, 0x35, 0x2F);
+    public static final Color TEXT_SEC      = new Color(0x78, 0x78, 0x74);
+    public static final Color TEXT_LIGHT    = new Color(0xB0, 0xB0, 0xAC);
 
     // FONTS - Bigger and cleaner
-    public static final Font F_HERO    = new Font("SansSerif", Font.BOLD, 28);
-    public static final Font F_BIG     = new Font("SansSerif", Font.BOLD, 22);
-    public static final Font F_TITLE   = new Font("SansSerif", Font.BOLD, 17);
-    public static final Font F_SECTION = new Font("SansSerif", Font.BOLD, 14);
+    public static final Font F_HERO    = new Font("SansSerif", Font.BOLD, 36);
+    public static final Font F_BIG     = new Font("SansSerif", Font.BOLD, 30);
+    public static final Font F_TITLE   = new Font("SansSerif", Font.BOLD, 20);
+    public static final Font F_SECTION = new Font("SansSerif", Font.BOLD, 15);
     public static final Font F_NORMAL  = new Font("SansSerif", Font.PLAIN, 14);
     public static final Font F_SMALL   = new Font("SansSerif", Font.PLAIN, 13);
     public static final Font F_TINY    = new Font("SansSerif", Font.PLAIN, 12);
@@ -43,7 +43,7 @@ public class AppConstants {
     public static final int AVATAR_SIZE_SMALL = 32;
     public static final int AVATAR_SIZE_MEDIUM = 48;
     public static final int AVATAR_SIZE_LARGE = 72;
-    public static final int FEED_COLUMNS = 3;
+    public static final int FEED_COLUMNS = 2;
     public static final int DISCOVER_LIMIT = 5;
     public static final int FEED_DESC_PREVIEW = 100;
     public static final int PAGE_PAD_X = 56;
@@ -90,7 +90,7 @@ public class AppConstants {
     public static final int MAX_EVENT_XP           = 100;
 
     // DATABASE
-    public static final String DB_URL  = "jdbc:mysql://localhost:3306/squirrel_db";
+    public static final String DB_URL  = "jdbc:mysql://localhost:3306/league_of_bilkent";
     public static final String DB_USER = "root";
     public static final String DB_PASS = "";
 
@@ -123,7 +123,7 @@ public class AppConstants {
     public static final double EVENT_SCORE_MIN_ATTENDEES  = 1;
 
     // ============ UI STRINGS ============
-    public static final String APP_NAME = "Squirrel";
+    public static final String APP_NAME = "League of Bilkent";
 
     // Page titles
     public static final String PAGE_FEED = "Events";
@@ -248,7 +248,7 @@ public class AppConstants {
     public static final String NOTIF_FOLLOW = "%s started following you!";
 
     // Login labels
-    public static final String LOGIN_TITLE = "Squirrel";
+    public static final String LOGIN_TITLE = "League of Bilkent";
     public static final String LOGIN_SUBTITLE = "Sign in to continue";
     public static final String LABEL_USERNAME = "Username";
     public static final String LABEL_PASSWORD = "Password";

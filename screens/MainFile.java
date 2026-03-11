@@ -5,7 +5,6 @@ import model.Event;
 import model.Event;
 import panels.*;
 import tools.*;
-
 import javax.swing.*;
 
 /**

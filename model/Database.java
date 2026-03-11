@@ -308,8 +308,8 @@ public class Database {
         ArrayList<String> partners = new ArrayList<>();
         try {
             PreparedStatement ps = databaseConnection.prepareStatement(
-                "SELECT partner FROM (SELECT CASE WHEN sender=? THEN receiver ELSE sender END as partner, msg_id " +
-                "FROM messages WHERE sender=? OR receiver=? ORDER BY msg_id DESC) sub");
+                "SELECT DISTINCT CASE WHEN sender=? THEN receiver ELSE sender END as partner " +
+                "FROM messages WHERE sender=? OR receiver=? ORDER BY msg_id DESC");
             ps.setString(1, username); ps.setString(2, username); ps.setString(3, username);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) { String p = rs.getString("partner"); if (!partners.contains(p)) partners.add(p); }
