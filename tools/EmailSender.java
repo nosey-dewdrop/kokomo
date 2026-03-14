@@ -1,8 +1,6 @@
 package tools;
 
 import model.*;
-import model.Event;
-import model.Event;
 
 import java.util.Properties;
 import java.util.Random;
@@ -10,8 +8,22 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import java.io.FileInputStream;
 
-/**
- * Email sender - reads credentials from credentials.properties
+/*
+ * ┌──────────────────────────────────────────────────────────────┐
+ * │                  <<class>> EmailSender                       │
+ * │         Email verification via SMTP (JavaMail API)          │
+ * ├──────────────────────────────────────────────────────────────┤
+ * │ - SENDER_EMAIL, SENDER_PASSWORD, SMTP_HOST, SMTP_PORT       │
+ * │   -> loaded from credentials.properties at startup          │
+ * ├──────────────────────────────────────────────────────────────┤
+ * │ + generateCode(): int -> random 6-digit verification code   │
+ * │ + sendVerificationEmail(email, code): boolean               │
+ * │ + sendPasswordResetEmail(email, code): boolean              │
+ * │ - sendEmail(email, subject, body): boolean -> SMTP send     │
+ * ├──────────────────────────────────────────────────────────────┤
+ * │ USES:    AppConstants (code range)                           │
+ * │ USED BY: RegisterScreen, ForgotPasswordDialog               │
+ * └──────────────────────────────────────────────────────────────┘
  */
 public class EmailSender {
 

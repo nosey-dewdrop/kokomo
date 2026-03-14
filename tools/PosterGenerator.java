@@ -1,62 +1,102 @@
 package tools;
 
 import model.*;
-import model.Event;
-import model.Event;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
+/*
+ * ┌──────────────────────────────────────────────────────────────────┐
+ * │                 <<class>> PosterGenerator                       │
+ * │             Auto-generates event poster images                  │
+ * ├──────────────────────────────────────────────────────────────────┤
+ * │ - WIDTH=600, HEIGHT=340 -> poster dimensions                    │
+ * │ - PASTELS: Color[] -> pastel color palette for backgrounds      │
+ * ├──────────────────────────────────────────────────────────────────┤
+ * │ + generate(title, tags, dateStr, location, xp): String          │
+ * │   -> creates poster PNG, returns file path                      │
+ * │ + generateDefault(Event): String -> shortcut for generate       │
+ * │ + getColorForTags(tags): Color -> tag-based color selection     │
+ * │ + getColorForEvent(eventId): Color -> id-based color rotation   │
+ * │ + getCategoryEmoji(tags): String -> tag-to-emoji mapping        │
+ * │ - pickColor(tags): int -> internal color index selector         │
+ * ├──────────────────────────────────────────────────────────────────┤
+ * │ USES:    Event (for generateDefault)                            │
+ * │ USED BY: SampleData, CreateEventPanel, FeedPanel                │
+ * └──────────────────────────────────────────────────────────────────┘
+ */
 public class PosterGenerator {
-    private static final int WIDTH=600,HEIGHT=340;
-    private static final Random rand=new Random();
-    private static final Color[] PASTELS={
-        new Color(173,216,255),new Color(255,182,193),new Color(176,226,172),
-        new Color(200,170,230),new Color(255,200,150),new Color(150,220,210),
-        new Color(255,240,150),new Color(255,190,200),new Color(210,190,240),
-        new Color(170,235,200),new Color(255,170,160),new Color(170,210,255)};
+    private static final int WIDTH = 600, HEIGHT = 340;
+    private static final Random rand = new Random();
 
-    private static int pickColor(ArrayList<String> tags){
-        if(tags==null||tags.isEmpty())return rand.nextInt(PASTELS.length);
-        String t=tags.get(0).toLowerCase();
-        if(t.contains("software")||t.contains("ai")||t.contains("python"))return 0;
-        if(t.contains("algorithm")||t.contains("cyber"))return 11;
-        if(t.contains("music")||t.contains("concert"))return 3;
-        if(t.contains("sport")||t.contains("fitness"))return 2;
-        if(t.contains("art")||t.contains("photo"))return 7;
-        if(t.contains("game"))return 4;
-        if(t.contains("food")||t.contains("social"))return 5;
-        if(t.contains("environment"))return 9;
-        if(t.contains("cinema")||t.contains("theater"))return 10;
-        if(t.contains("education")||t.contains("workshop"))return 8;
+    // Dewdrop ocean/teal pastels
+    private static final Color[] PASTELS = {
+        new Color(0xCE, 0xF3, 0xF6), new Color(0xB8, 0xDF, 0xF5),
+        new Color(0xD4, 0xEE, 0xD1), new Color(0xE3, 0xD5, 0xF0),
+        new Color(0xFF, 0xE0, 0xC8), new Color(0xD0, 0xF0, 0xF0),
+        new Color(0xF0, 0xFB, 0xFC), new Color(0xE3, 0xF1, 0xF8),
+        new Color(0xD0, 0xE8, 0xF2), new Color(0xCE, 0xF3, 0xE0)
+    };
+
+    private static int pickColor(ArrayList<String> tags) {
+        if (tags == null || tags.isEmpty()) return rand.nextInt(PASTELS.length);
+        String t = tags.get(0).toLowerCase();
+        if (t.contains("software") || t.contains("ai") || t.contains("algorithm")) return 0;
+        if (t.contains("music") || t.contains("concert")) return 3;
+        if (t.contains("sport") || t.contains("fitness")) return 2;
+        if (t.contains("art") || t.contains("photo")) return 4;
+        if (t.contains("game")) return 5;
+        if (t.contains("food")) return 6;
+        if (t.contains("environment")) return 9;
         return rand.nextInt(PASTELS.length);
     }
 
-    public static String generate(String title,ArrayList<String> tags,String dateStr,String location,int xp){
-        BufferedImage img=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
-        Graphics2D g=(Graphics2D)img.getGraphics();
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-        Color bg=PASTELS[pickColor(tags)];
-        g.setColor(bg);
-        g.fillRect(0,0,WIDTH,HEIGHT);
-        g.setColor(new Color(255,255,255,40));
-        g.fillOval(WIDTH-120,-30,200,200);
-        g.fillOval(-50,HEIGHT-100,160,160);
-        g.setColor(new Color(255,255,255,25));
-        g.fillOval(WIDTH/2-60,HEIGHT/2-60,120,120);
-        g.dispose();
-        try{
-            File dir=new File("posters");dir.mkdirs();
-            String fname="posters/poster_"+System.currentTimeMillis()+"_"+rand.nextInt(9999)+".png";
-            javax.imageio.ImageIO.write(img,"png",new File(fname));
-            return fname;
-        }catch(Exception e){return null;}
+    public static Color getColorForTags(ArrayList<String> tags) {
+        return PASTELS[pickColor(tags)];
     }
 
-    public static String generateDefault(Event ev){
-        return generate(ev.getTitle(),ev.getTags(),ev.getDateStr(),ev.getLocation(),ev.getXpReward());
+    public static Color getColorForEvent(int eventId) {
+        return PASTELS[Math.abs(eventId) % PASTELS.length];
+    }
+
+    public static String getCategoryEmoji(ArrayList<String> tags) {
+        if (tags == null || tags.isEmpty()) return "\uD83C\uDFAD";
+        String firstTag = tags.get(0).toLowerCase();
+        if (firstTag.contains("music")) return "\uD83C\uDFB5";
+        if (firstTag.contains("sport") || firstTag.contains("fitness")) return "\uD83C\uDFC3";
+        if (firstTag.contains("food")) return "\uD83C\uDF55";
+        if (firstTag.contains("software") || firstTag.contains("ai") || firstTag.contains("algorithm")) return "\uD83D\uDCBB";
+        if (firstTag.contains("art") || firstTag.contains("photo")) return "\uD83C\uDFA8";
+        if (firstTag.contains("game")) return "\uD83C\uDFAE";
+        if (firstTag.contains("education") || firstTag.contains("workshop")) return "\uD83D\uDCDA";
+        return "\uD83C\uDFAD";
+    }
+
+    public static String generate(String title, ArrayList<String> tags, String dateStr, String location, int xp) {
+        BufferedImage img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = (Graphics2D) img.getGraphics();
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        Color bg = PASTELS[pickColor(tags)];
+        g.setColor(bg);
+        g.fillRect(0, 0, WIDTH, HEIGHT);
+        // Soft circles
+        g.setColor(new Color(255, 255, 255, 35));
+        g.fillOval(WIDTH - 130, -40, 220, 220);
+        g.fillOval(-60, HEIGHT - 110, 180, 180);
+        g.setColor(new Color(255, 255, 255, 20));
+        g.fillOval(WIDTH / 2 - 70, HEIGHT / 2 - 70, 140, 140);
+        g.dispose();
+        try {
+            File dir = new File("posters"); dir.mkdirs();
+            String fname = "posters/poster_" + System.currentTimeMillis() + "_" + rand.nextInt(9999) + ".png";
+            javax.imageio.ImageIO.write(img, "png", new File(fname));
+            return fname;
+        } catch (Exception e) { return null; }
+    }
+
+    public static String generateDefault(model.Event ev) {
+        return generate(ev.getTitle(), ev.getTags(), ev.getDateStr(), ev.getLocation(), ev.getXpReward());
     }
 }

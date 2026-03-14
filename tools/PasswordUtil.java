@@ -1,17 +1,24 @@
 package tools;
 
 import model.*;
-import model.Event;
-import model.Event;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
 
-/**
- * Sifre guvenligi icin SHA-256 hashing + salt.
- * Duz metin sifre ASLA kaydedilmez.
+/*
+ * ┌──────────────────────────────────────────────────────────────┐
+ * │                  <<class>> PasswordUtil                      │
+ * │              SHA-256 password hashing with salt              │
+ * ├──────────────────────────────────────────────────────────────┤
+ * │ + generateSalt(): String -> random 16-byte salt (Base64)    │
+ * │ + hashPassword(password, salt): String -> SHA-256 hash      │
+ * │ + verifyPassword(password, hash, salt): boolean             │
+ * ├──────────────────────────────────────────────────────────────┤
+ * │ USED BY: User (convenience constructor), LoginScreen,       │
+ * │          RegisterScreen, ForgotPasswordDialog, SampleData   │
+ * └──────────────────────────────────────────────────────────────┘
  */
 public class PasswordUtil {
 

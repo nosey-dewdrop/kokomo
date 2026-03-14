@@ -1,8 +1,6 @@
 package panels;
 
 import model.*;
-import model.Event;
-import model.Event;
 import screens.*;
 import tools.*;
 
@@ -275,6 +273,16 @@ public class UIHelper {
         sep.setMaximumSize(new Dimension(Integer.MAX_VALUE, 1));
         sep.setAlignmentX(Component.LEFT_ALIGNMENT);
         return sep;
+    }
+
+
+    public static JLabel createFieldLabel(String text) {
+        JLabel l = new JLabel(text);
+        l.setFont(AppConstants.F_SMALL);
+        l.setForeground(AppConstants.TEXT_SEC);
+        l.setAlignmentX(Component.LEFT_ALIGNMENT);
+        l.setBorder(BorderFactory.createEmptyBorder(0, 0, 2, 0));
+        return l;
     }
 
     public static JPanel createPagePanel() {

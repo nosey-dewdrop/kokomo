@@ -1,8 +1,6 @@
 package screens;
 
 import model.*;
-import model.Event;
-import model.Event;
 import panels.*;
 import tools.*;
 
@@ -10,6 +8,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/*
+ * ┌──────────────────────────────────────────────────────────────┐
+ * │                <<class>> RegisterScreen                      │
+ * │                   extends JPanel                             │
+ * │        Registration form (embedded in LoginScreen tab)       │
+ * ├──────────────────────────────────────────────────────────────┤
+ * │ - usernameField, emailField, displayNameField, passwordField │
+ * │ - clubCheckBox -> club account toggle                       │
+ * │ - verificationCode -> email verification code               │
+ * ├──────────────────────────────────────────────────────────────┤
+ * │ - initComponents() -> builds registration form              │
+ * │ - handleRegister() -> validates, sends email verification,  │
+ * │   hashes password, saves user, shows interest selection      │
+ * ├──────────────────────────────────────────────────────────────┤
+ * │ USES:    Database, UIHelper, PasswordUtil, EmailSender,     │
+ * │          InterestSelectionDialog, User, ClubUser             │
+ * │ USED BY: LoginScreen (register tab)                         │
+ * └──────────────────────────────────────────────────────────────┘
+ */
 public class RegisterScreen extends JPanel {
 
     private LoginScreen loginScreen;

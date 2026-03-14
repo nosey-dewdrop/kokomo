@@ -5,6 +5,56 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/*
+ * ┌─────────────────────────────────────────────────────────────────────┐
+ * │                      <<class>> Database                            │
+ * │                   Static MySQL data layer                          │
+ * ├─────────────────────────────────────────────────────────────────────┤
+ * │ + databaseConnection: Connection (static)                          │
+ * ├─────────────────────────────────────────────────────────────────────┤
+ * │ CONNECTION & SCHEMA:                                               │
+ * │  + createConnection() -> connects to MySQL, creates tables         │
+ * │  - createTables() -> DDL for all 9 tables                          │
+ * │  - migrateAttendeesTable() -> legacy migration                     │
+ * │  - addColumnIfNotExists() -> schema evolution                      │
+ * │                                                                     │
+ * │ ADD:                                                                │
+ * │  + addToDatabase(User) -> inserts user + interests                 │
+ * │  + addToDatabase(Event): int -> inserts event + tags, returns id   │
+ * │  + addToDatabase(Comment, eventId): int -> inserts comment         │
+ * │                                                                     │
+ * │ DELETE:                                                             │
+ * │  + deleteFromDatabase(User) -> cascading delete                    │
+ * │  + deleteFromDatabase(Event) -> cascading delete                   │
+ * │                                                                     │
+ * │ ATTENDANCE:                                                         │
+ * │  + setAttendance/removeAttendance/getAttendanceMap                 │
+ * │                                                                     │
+ * │ FOLLOWS:                                                            │
+ * │  + addFollow/deleteFollow/getFollowers/getFollowing                 │
+ * │                                                                     │
+ * │ TAGS/INTERESTS/NOTIFICATIONS:                                       │
+ * │  + addEventTag/getEventTags, addInterest/getInterests/setInterests │
+ * │  + addNotification/getNotifications                                 │
+ * │                                                                     │
+ * │ MESSAGES:                                                           │
+ * │  + sendMessage/getMessages/getConversationPartners                 │
+ * │                                                                     │
+ * │ QUERIES:                                                            │
+ * │  + getAllUsers/getUserWithUsername/getAllEvents                      │
+ * │  + getLeaderboard/getUserXP/addXP                                  │
+ * │  + getPopularEventIds/getRecommendedEventIds                       │
+ * │  + isEmailTaken/isDatabaseEmpty                                    │
+ * │                                                                     │
+ * │ UPDATES:                                                            │
+ * │  + updateUserVerified/updateUserPassword/updateUserBio             │
+ * │  + updateEventImage                                                 │
+ * ├─────────────────────────────────────────────────────────────────────┤
+ * │ USES:    User, ClubUser, Event, Comment, AttendanceStatus,         │
+ * │          AppConstants, PasswordUtil                                  │
+ * │ USED BY: Every screen and panel in the application                 │
+ * └─────────────────────────────────────────────────────────────────────┘
+ */
 public class Database {
 
     public static Connection databaseConnection;

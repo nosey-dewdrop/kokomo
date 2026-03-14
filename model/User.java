@@ -4,10 +4,31 @@ import tools.*;
 
 import java.util.ArrayList;
 
-/**
- * Kullanici modeli - encapsulation + Searchable polymorphism.
- * Password hashing icin salt alani eklendi.
- * ClubUser bu sinifi extend eder (inheritance).
+/*
+ * ┌─────────────────────────────────────────────────────────────────┐
+ * │                     <<class>> User                             │
+ * │                 implements Searchable                          │
+ * ├─────────────────────────────────────────────────────────────────┤
+ * │ - username, displayName, email, password, salt, bio            │
+ * │ - verified, xp                                                 │
+ * │ - interests, following, followers, attending, notifications    │
+ * ├─────────────────────────────────────────────────────────────────┤
+ * │ + User(username, displayName, email, password, salt, bio)      │
+ * │ + User(username, displayName, email, plainPassword, bio)       │
+ * │   -> auto-generates salt and hashes password                   │
+ * │ + User(username, password) -> convenience constructor          │
+ * │ + isClub(): boolean -> overridden by ClubUser (polymorphism)   │
+ * │ + getProfileBadge(): String -> overridden by ClubUser          │
+ * │ + checkPassword(plain): boolean -> hash comparison             │
+ * │ + matchesSearch(query): boolean -> Searchable interface        │
+ * │ + getSearchSummary(): String -> Searchable interface           │
+ * │ + add/remove: Interest, Following, Follower, Attending, Notif  │
+ * ├─────────────────────────────────────────────────────────────────┤
+ * │ INHERITANCE: ClubUser extends User                             │
+ * │ IMPLEMENTS:  Searchable (matchesSearch, getSearchSummary)      │
+ * │ USED BY:     Database, HomeScreen, ProfilePanel, SearchPanel,  │
+ * │              LoginScreen, RegisterScreen, LeaderboardPanel     │
+ * └─────────────────────────────────────────────────────────────────┘
  */
 public class User implements Searchable {
 

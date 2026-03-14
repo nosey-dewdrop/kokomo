@@ -1,8 +1,6 @@
 package panels;
 
 import model.*;
-import model.Event;
-import model.Event;
 import screens.*;
 import tools.*;
 

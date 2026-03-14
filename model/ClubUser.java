@@ -1,8 +1,21 @@
 package model;
 
-/**
- * Kulup hesabi - User sinifini extend eder (INHERITANCE).
- * isClub() ve getProfileBadge() override edilir (POLYMORPHISM).
+/*
+ * ┌──────────────────────────────────────────────────────────────┐
+ * │                  <<class>> ClubUser                          │
+ * │                   extends User                               │
+ * ├──────────────────────────────────────────────────────────────┤
+ * │ (all fields inherited from User)                             │
+ * ├──────────────────────────────────────────────────────────────┤
+ * │ + ClubUser(username, displayName, email, password, salt, bio)│
+ * │ + ClubUser(username, displayName, email, plainPassword, bio) │
+ * │ + isClub(): boolean -> always true (POLYMORPHISM)            │
+ * │ + getProfileBadge(): String -> "@user [CLUB] ✓" (OVERRIDE)  │
+ * ├──────────────────────────────────────────────────────────────┤
+ * │ INHERITS:   User (all fields + methods)                      │
+ * │ IMPLEMENTS: Searchable (via User)                            │
+ * │ USED BY:    RegisterScreen, SampleData, Database.buildUser   │
+ * └──────────────────────────────────────────────────────────────┘
  */
 public class ClubUser extends User {
 

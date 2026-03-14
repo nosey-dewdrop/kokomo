@@ -5,6 +5,34 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/*
+ * ┌────────────────────────────────────────────────────────────────────┐
+ * │                      <<class>> Event                              │
+ * │                   implements Searchable                           │
+ * ├────────────────────────────────────────────────────────────────────┤
+ * │ - id, title, description, location, dateTime, endDateTime         │
+ * │ - registrationDeadline, capacity, creatorUsername                  │
+ * │ - tags: ArrayList<String>, comments: ArrayList<Comment>           │
+ * │ - attendanceMap: HashMap<String, AttendanceStatus>                │
+ * │ - imagePath, xpReward, minTierIndex                               │
+ * ├────────────────────────────────────────────────────────────────────┤
+ * │ + Event(id,title,desc,loc,dateTime,endDT,deadline,cap,creator)    │
+ * │ + Event(id,title,desc,loc,dateTime,cap,creator) -> kisa form     │
+ * │ + getDateStr/getEndDateStr/getDeadlineStr -> format'li tarihler  │
+ * │ + getGoingCount/getInterestedCount/getMaybeCount -> sayaçlar     │
+ * │ + isFull/isDeadlinePassed/isEventPast -> durum kontrolleri       │
+ * │ + canJoin(userXP): boolean -> tier kontrolu                      │
+ * │ + setAttendance/removeAttendance -> katilim yonetimi             │
+ * │ + addComment/addTag -> icerik ekleme                              │
+ * │ + matchesSearch/getSearchSummary -> Searchable interface          │
+ * ├────────────────────────────────────────────────────────────────────┤
+ * │ IMPLEMENTS:  Searchable (matchesSearch, getSearchSummary)          │
+ * │ USES:        Comment, AttendanceStatus, AppConstants               │
+ * │ USED BY:     Database, FeedPanel, EventDetailPanel, HomeScreen,    │
+ * │              DiscoverPanel, CalendarPanel, SearchPanel,            │
+ * │              ProfilePanel, CreateEventPanel, PosterGenerator       │
+ * └────────────────────────────────────────────────────────────────────┘
+ */
 public class Event implements Searchable {
 
     private int id;

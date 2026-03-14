@@ -3,9 +3,21 @@ package model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Yorum modeli - threaded yorum destegi.
- * parentId ile yanit zincirleri olusturulur.
+/*
+ * ┌──────────────────────────────────────────────────────────────┐
+ * │                    <<class>> Comment                         │
+ * ├──────────────────────────────────────────────────────────────┤
+ * │ - id, username, text, time                                   │
+ * │ - parentId: int (0 = top-level, >0 = reply)                 │
+ * ├──────────────────────────────────────────────────────────────┤
+ * │ + Comment(username, text) -> auto timestamp                  │
+ * │ + Comment(username, text, time)                              │
+ * │ + Comment(id, username, text, time, parentId) -> from DB     │
+ * │ + isReply(): boolean -> checks parentId > 0                  │
+ * ├──────────────────────────────────────────────────────────────┤
+ * │ USED BY: Event (comments list), Database,                    │
+ * │          EventDetailPanel, HomeScreen.addComment, SampleData  │
+ * └──────────────────────────────────────────────────────────────┘
  */
 public class Comment {
 

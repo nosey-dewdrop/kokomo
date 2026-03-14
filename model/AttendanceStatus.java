@@ -1,8 +1,18 @@
 package model;
 
-/**
- * Etkinlik katilim durumu - Going/Interested/Maybe.
- * Plandaki 2.3 Attendance System.
+/*
+ * ┌──────────────────────────────────────────────────────────────┐
+ * │                 <<enum>> AttendanceStatus                    │
+ * ├──────────────────────────────────────────────────────────────┤
+ * │ GOING("Going"), INTERESTED("Interested"), MAYBE("Maybe")    │
+ * ├──────────────────────────────────────────────────────────────┤
+ * │ + getDisplayName(): String                                   │
+ * │ + fromString(s): AttendanceStatus (static) -> parses from DB │
+ * ├──────────────────────────────────────────────────────────────┤
+ * │ USED BY: Event (attendanceMap), Database,                    │
+ * │          EventDetailPanel, HomeScreen.changeAttendance,       │
+ * │          FeedPanel, SampleData                                │
+ * └──────────────────────────────────────────────────────────────┘
  */
 public enum AttendanceStatus {
     GOING("Going"),

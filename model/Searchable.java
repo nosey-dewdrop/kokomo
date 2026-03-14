@@ -1,8 +1,15 @@
 package model;
 
-/**
- * Aranabilir nesneler icin interface.
- * User ve Event bu interface'i implement eder -> polymorphism.
+/*
+ * ┌──────────────────────────────────────────────────────────────┐
+ * │               <<interface>> Searchable                       │
+ * ├──────────────────────────────────────────────────────────────┤
+ * │ + matchesSearch(query: String): boolean                      │
+ * │ + getSearchSummary(): String                                 │
+ * ├──────────────────────────────────────────────────────────────┤
+ * │ IMPLEMENTORS: User, Event (POLYMORPHISM)                     │
+ * │ USED BY:      SearchPanel.performSearch                      │
+ * └──────────────────────────────────────────────────────────────┘
  */
 public interface Searchable {
 
