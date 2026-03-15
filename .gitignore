@@ -6,3 +6,8 @@ posters/
 credentials.properties
 build/
 .claude/
+.vscode/
+HELP.md
+HOW_TO_USE.md
+run.sh
+setup.sh
