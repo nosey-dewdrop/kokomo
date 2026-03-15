@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>League of Bilkent — UML Class Diagram</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'JetBrains Mono',monospace;background:#fff;color:#000;padding:24px;font-size:11px;line-height:1.4}
+h1{font-size:16px;font-weight:700;text-align:center;margin-bottom:4px;text-transform:uppercase;letter-spacing:2px}
+.sub{text-align:center;font-size:10px;color:#666;margin-bottom:32px}
+.pkg{margin-bottom:32px}
+.pkg-title{font-size:13px;font-weight:700;border-bottom:2px solid #000;padding-bottom:4px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+.card{border:2px solid #000}
+.card-head{background:#000;color:#fff;padding:5px 8px;font-weight:700;font-size:12px;display:flex;justify-content:space-between;align-items:center}
+.card-head .st{font-weight:400;font-size:10px}
+.card-head .ext{font-weight:400;font-size:10px;color:#aaa}
+.attrs,.methods{padding:4px 8px}
+.attrs{border-bottom:1px solid #000}
+.line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sep2{height:0;border-top:2px solid #000}
+.rel-box{border:2px solid #000;padding:12px;margin-top:32px}
+.rel-box h2{font-size:13px;font-weight:700;margin-bottom:8px;text-transform:uppercase}
+.rel-line{line-height:1.8}
+@media print{body{padding:8px;font-size:10px}.grid{grid-template-columns:1fr 1fr}.card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<h1>League of Bilkent</h1>
+<p class="sub">UML Class Diagram</p>
+
+<!-- MODEL -->
+<div class="pkg">
+<div class="pkg-title">model</div>
+<div class="grid">
+
+<div class="card">
+<div class="card-head">&laquo;interface&raquo; Searchable</div>
+<div class="sep2"></div>
+<div class="methods">
+<div class="line">+ matchesSearch(query: String): boolean</div>
+<div class="line">+ getSearchSummary(): String</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-head">&laquo;enum&raquo; AttendanceStatus</div>
+<div class="attrs">
+<div class="line">GOING, INTERESTED, MAYBE</div>
+<div class="line">- displayName: String</div>
+</div>
+<div class="methods">
+<div class="line">+ getDisplayName(): String</div>
+<div class="line">+ fromString(s: String): AttendanceStatus</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-head">User <span class="ext">implements Searchable</span></div>
+<div class="attrs">
+<div class="line">- username: String</div>
+<div class="line">- displayName: String</div>
+<div class="line">- email: String</div>
+<div class="line">- password: String</div>
+<div class="line">- salt: String</div>
+<div class="line">- bio: String</div>
+<div class="line">- verified: boolean</div>
+<div class="line">- interests: ArrayList&lt;String&gt;</div>
+<div class="line">- following: ArrayList&lt;String&gt;</div>
+<div class="line">- followers: ArrayList&lt;String&gt;</div>
+<div class="line">- notifications: ArrayList&lt;String&gt;</div>
+<div class="line">- attending: ArrayList&lt;Integer&gt;</div>
+<div class="line">- xp: int</div>
+</div>
+<div class="methods">
+<div class="line">+ User(username, displayName, email, password, salt, bio)</div>
+<div class="line">+ User(username, displayName, email, plainPassword, bio)</div>
+<div class="line">+ User(username, password)</div>
+<div class="line">+ getUsername(): String</div>
+<div class="line">+ getDisplayName(): String</div>
+<div class="line">+ getEmail(): String</div>
+<div class="line">+ getPassword(): String</div>
+<div class="line">+ getSalt(): String</div>
+<div class="line">+ getBio(): String</div>
+<div class="line">+ isVerified(): boolean</div>
+<div class="line">+ getInterests(): ArrayList&lt;String&gt;</div>
+<div class="line">+ getFollowing(): ArrayList&lt;String&gt;</div>
+<div class="line">+ getFollowers(): ArrayList&lt;String&gt;</div>
+<div class="line">+ getAttending(): ArrayList&lt;Integer&gt;</div>
+<div class="line">+ getNotifications(): ArrayList&lt;String&gt;</div>
+<div class="line">+ getXp(): int</div>
+<div class="line">+ isClub(): boolean</div>
+<div class="line">+ getProfileBadge(): String</div>
+<div class="line">+ setUsername(username: String): void</div>
+<div class="line">+ setDisplayName(displayName: String): void</div>
+<div class="line">+ setEmail(email: String): void</div>
+<div class="line">+ setPassword(password: String): void</div>
+<div class="line">+ setSalt(salt: String): void</div>
+<div class="line">+ setBio(bio: String): void</div>
+<div class="line">+ setVerified(verified: boolean): void</div>
+<div class="line">+ setInterests(interests: ArrayList&lt;String&gt;): void</div>
+<div class="line">+ setFollowing(following: ArrayList&lt;String&gt;): void</div>
+<div class="line">+ setFollowers(followers: ArrayList&lt;String&gt;): void</div>
+<div class="line">+ setAttending(attending: ArrayList&lt;Integer&gt;): void</div>
+<div class="line">+ setNotifications(notifications: ArrayList&lt;String&gt;): void</div>
+<div class="line">+ setXp(xp: int): void</div>
+<div class="line">+ addInterest(interest: String): void</div>
+<div class="line">+ removeInterest(interest: String): void</div>
+<div class="line">+ addFollowing(username: String): void</div>
+<div class="line">+ removeFollowing(username: String): void</div>
+<div class="line">+ addFollower(username: String): void</div>
+<div class="line">+ removeFollower(username: String): void</div>
+<div class="line">+ addAttending(eventId: int): void</div>
+<div class="line">+ removeAttending(eventId: int): void</div>
+<div class="line">+ addNotification(message: String): void</div>
+<div class="line">+ isFollowing(username: String): boolean</div>
+<div class="line">+ checkPassword(plainPassword: String): boolean</div>
+<div class="line">+ matchesSearch(query: String): boolean</div>
+<div class="line">+ getSearchSummary(): String</div>
+<div class="line">+ toString(): String</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-head">ClubUser <span class="ext">extends User</span></div>
+<div class="sep2"></div>
+<div class="methods">
+<div class="line">+ ClubUser(username, displayName, email, password, salt, bio)</div>
+<div class="line">+ ClubUser(username, displayName, email, plainPassword, bio)</div>
+<div class="line">+ isClub(): boolean</div>
+<div class="line">+ getProfileBadge(): String</div>
+<div class="line">+ toString(): String</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-head">Event <span class="ext">implements Searchable</span></div>
+<div class="attrs">
+<div class="line">- id: int</div>
+<div class="line">- capacity: int</div>
+<div class="line">- xpReward: int</div>
+<div class="line">- minTierIndex: int</div>
+<div class="line">- title: String</div>
+<div class="line">- description: String</div>
+<div class="line">- location: String</div>
+<div class="line">- creatorUsername: String</div>
+<div class="line">- imagePath: String</div>
+<div class="line">- dateTime: LocalDateTime</div>
+<div class="line">- endDateTime: LocalDateTime</div>
+<div class="line">- registrationDeadline: LocalDateTime</div>
+<div class="line">- tags: ArrayList&lt;String&gt;</div>
+<div class="line">- comments: ArrayList&lt;Comment&gt;</div>
+<div class="line">- attendanceMap: HashMap&lt;String, AttendanceStatus&gt;</div>
+<div class="line">- FMT: DateTimeFormatter</div>
+</div>
+<div class="methods">
+<div class="line">+ Event(id, title, desc, location, dateTime, endDateTime, deadline, capacity, creator)</div>
+<div class="line">+ Event(id, title, desc, location, dateTime, capacity, creator)</div>
+<div class="line">+ getId(): int</div>
+<div class="line">+ getTitle(): String</div>
+<div class="line">+ getDescription(): String</div>
+<div class="line">+ getLocation(): String</div>
+<div class="line">+ getDateTime(): LocalDateTime</div>
+<div class="line">+ getEndDateTime(): LocalDateTime</div>
+<div class="line">+ getRegistrationDeadline(): LocalDateTime</div>
+<div class="line">+ getCapacity(): int</div>
+<div class="line">+ getCreatorUsername(): String</div>
+<div class="line">+ getTags(): ArrayList&lt;String&gt;</div>
+<div class="line">+ getComments(): ArrayList&lt;Comment&gt;</div>
+<div class="line">+ getAttendanceMap(): HashMap&lt;String, AttendanceStatus&gt;</div>
+<div class="line">+ getImagePath(): String</div>
+<div class="line">+ getXpReward(): int</div>
+<div class="line">+ getMinTierIndex(): int</div>
+<div class="line">+ getDateStr(): String</div>
+<div class="line">+ getEndDateStr(): String</div>
+<div class="line">+ getDeadlineStr(): String</div>
+<div class="line">+ getMinTierName(): String</div>
+<div class="line">+ getAttendees(): ArrayList&lt;String&gt;</div>
+<div class="line">+ getAttendeesByStatus(status: AttendanceStatus): ArrayList&lt;String&gt;</div>
+<div class="line">+ getGoingCount(): int</div>
+<div class="line">+ getInterestedCount(): int</div>
+<div class="line">+ getMaybeCount(): int</div>
+<div class="line">+ getAttendeeCount(): int</div>
+<div class="line">+ isFull(): boolean</div>
+<div class="line">+ isDeadlinePassed(): boolean</div>
+<div class="line">+ isEventPast(): boolean</div>
+<div class="line">+ canJoin(userXP: int): boolean</div>
+<div class="line">+ setId(id: int): void</div>
+<div class="line">+ setTitle(title: String): void</div>
+<div class="line">+ setDescription(description: String): void</div>
+<div class="line">+ setEndDateTime(endDateTime: LocalDateTime): void</div>
+<div class="line">+ setRegistrationDeadline(deadline: LocalDateTime): void</div>
+<div class="line">+ setTags(tags: ArrayList&lt;String&gt;): void</div>
+<div class="line">+ setComments(comments: ArrayList&lt;Comment&gt;): void</div>
+<div class="line">+ setAttendanceMap(map: HashMap&lt;String, AttendanceStatus&gt;): void</div>
+<div class="line">+ setImagePath(path: String): void</div>
+<div class="line">+ setXpReward(xp: int): void</div>
+<div class="line">+ setMinTierIndex(idx: int): void</div>
+<div class="line">+ setAttendees(attendees: ArrayList&lt;String&gt;): void</div>
+<div class="line">+ addTag(tag: String): void</div>
+<div class="line">+ setAttendance(u: String, s: AttendanceStatus): void</div>
+<div class="line">+ removeAttendance(u: String): void</div>
+<div class="line">+ getAttendanceStatus(u: String): AttendanceStatus</div>
+<div class="line">+ isAttending(u: String): boolean</div>
+<div class="line">+ addAttendee(u: String): void</div>
+<div class="line">+ removeAttendee(u: String): void</div>
+<div class="line">+ addComment(c: Comment): void</div>
+<div class="line">+ matchesSearch(query: String): boolean</div>
+<div class="line">+ getSearchSummary(): String</div>
+<div class="line">+ toString(): String</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-head">Comment</div>
+<div class="attrs">
+<div class="line">- id: int</div>
+<div class="line">- parentId: int</div>
+<div class="line">- username: String</div>
+<div class="line">- text: String</div>
+<div class="line">- time: String</div>
+</div>
+<div class="methods">
+<div class="line">+ Comment(username, text)</div>
+<div class="line">+ Comment(username, text, time)</div>
+<div class="line">+ Comment(id, username, text, time, parentId)</div>
+<div class="line">+ getId(): int</div>
+<div class="line">+ getUsername(): String</div>
+<div class="line">+ getText(): String</div>
+<div class="line">+ getTime(): String</div>
+<div class="line">+ getParentId(): int</div>
+<div class="line">+ setId(id: int): void</div>
+<div class="line">+ setParentId(parentId: int): void</div>
+<div class="line">+ isReply(): boolean</div>
+<div class="line">+ toString(): String</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-head">Database</div>
+<div class="attrs">
+<div class="line">+ databaseConnection: Connection {static}</div>
+</div>
+<div class="methods">
+<div class="line">+ createConnection(): void {static}</div>
+<div class="line">- createTables(): void {static}</div>
+<div class="line">- migrateAttendeesTable(stmt: Statement): void {static}</div>
+<div class="line">- addColumnIfNotExists(stmt, table, col, def): void {static}</div>
+<div class="line">+ addToDatabase(user: User): void {static}</div>
+<div class="line">+ addToDatabase(event: Event): int {static}</div>
+<div class="line">+ addToDatabase(comment: Comment, eventId: int): int {static}</div>
+<div class="line">+ deleteFromDatabase(user: User): void {static}</div>
+<div class="line">+ deleteFromDatabase(event: Event): void {static}</div>
+<div class="line">- exec(sql: String, params: Object...): void {static}</div>
+<div class="line">+ setAttendance(eventId, username, status): void {static}</div>
+<div class="line">+ removeAttendance(eventId, username): void {static}</div>
+<div class="line">+ getAttendanceMap(eventId): HashMap {static}</div>
+<div class="line">+ addAttendee(eid, u): void {static}</div>
+<div class="line">+ deleteAttendee(eid, u): void {static}</div>
+<div class="line">+ getAttendees(eid): ArrayList&lt;String&gt; {static}</div>
+<div class="line">+ addFollow(follower, following): void {static}</div>
+<div class="line">+ deleteFollow(follower, following): void {static}</div>
+<div class="line">+ getFollowers(u): ArrayList&lt;String&gt; {static}</div>
+<div class="line">+ getFollowing(u): ArrayList&lt;String&gt; {static}</div>
+<div class="line">+ addEventTag(eid, tag): void {static}</div>
+<div class="line">+ getEventTags(eid): ArrayList&lt;String&gt; {static}</div>
+<div class="line">+ addInterest(u, i): void {static}</div>
+<div class="line">+ removeInterest(u, i): void {static}</div>
+<div class="line">+ getInterests(u): ArrayList&lt;String&gt; {static}</div>
+<div class="line">+ setInterests(u, list): void {static}</div>
+<div class="line">+ addNotification(u, msg): void {static}</div>
+<div class="line">+ getNotifications(u): ArrayList&lt;String&gt; {static}</div>
+<div class="line">+ sendMessage(sender, receiver, text): void {static}</div>
+<div class="line">+ getMessages(user1, user2): ArrayList&lt;String[]&gt; {static}</div>
+<div class="line">+ getConversationPartners(username): ArrayList&lt;String&gt; {static}</div>
+<div class="line">+ getAllUsers(): ArrayList&lt;User&gt; {static}</div>
+<div class="line">+ getUserWithUsername(username): User {static}</div>
+<div class="line">- buildUser(rs: ResultSet): User {static}</div>
+<div class="line">+ updateUserVerified(u, v): void {static}</div>
+<div class="line">+ updateUserPassword(u, hash, salt): void {static}</div>
+<div class="line">+ updateUserBio(u, bio): void {static}</div>
+<div class="line">+ getAllEvents(): ArrayList&lt;Event&gt; {static}</div>
+<div class="line">- buildEvent(rs: ResultSet): Event {static}</div>
+<div class="line">- parseOptDT(s: String): LocalDateTime {static}</div>
+<div class="line">+ getComments(eid): ArrayList&lt;Comment&gt; {static}</div>
+<div class="line">+ getPopularEventIds(limit): ArrayList&lt;Integer&gt; {static}</div>
+<div class="line">+ getRecommendedEventIds(username, limit): ArrayList&lt;Integer&gt; {static}</div>
+<div class="line">+ getLeaderboard(limit): ArrayList&lt;User&gt; {static}</div>
+<div class="line">+ getUserXP(u): int {static}</div>
+<div class="line">+ addXP(u, amount): void {static}</div>
+<div class="line">+ isEmailTaken(email): boolean {static}</div>
+<div class="line">+ updateEventImage(eventId, path): void {static}</div>
+<div class="line">+ isDatabaseEmpty(): boolean {static}</div>
+<div class="line">- qList(sql, col, param): ArrayList&lt;String&gt; {static}</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-head">AppConstants</div>
+<div class="attrs">
+<div class="line">+ TEAL, TEAL_DARK, TEAL_LIGHT, ... : Color {static final}</div>
+<div class="line">+ F_HERO, F_BIG, F_TITLE, ... : Font {static final}</div>
+<div class="line">+ WINDOW_WIDTH, WINDOW_HEIGHT, ... : int {static final}</div>
+<div class="line">+ TIER_NAMES, INTEREST_CATEGORIES: String[] {static final}</div>
+<div class="line">+ TIER_THRESHOLDS: int[] {static final}</div>
+<div class="line">+ TIER_COLORS: Color[] {static final}</div>
+<div class="line">+ DB_URL, DB_USER, DB_PASS, ... : String {static final}</div>
+<div class="line">- DB_PROPS: Properties {static final}</div>
+</div>
+<div class="methods">
+<div class="line">- loadCredentials(): Properties {static}</div>
+<div class="line">+ getTierIndex(xp: int): int {static}</div>
+<div class="line">+ getTierName(xp: int): String {static}</div>
+<div class="line">+ getTierColor(xp: int): Color {static}</div>
+<div class="line">+ getNextTierXP(xp: int): int {static}</div>
+<div class="line">+ getNextTierName(xp: int): String {static}</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-head">SampleData</div>
+<div class="sep2"></div>
+<div class="methods">
+<div class="line">+ loadSampleData(): void {static}</div>
+</div>
+</div>
+
+</div></div>
+
+<!-- SCREENS -->
+<div class="pkg">
+<div class="pkg-title">screens</div>
+<div class="grid">
+
+<div class="card">
+<div class="card-head">MainFile</div>
+<div class="attrs">
+<div class="line">+ currentUser: User {static}</div>
+<div class="line">+ loginScreen: LoginScreen {static}</div>
+</div>
+<div class="methods">
+<div class="line">+ main(args: String[]): void {static}</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-head">LoginScreen <span class="ext">extends JFrame</span></div>
+<div class="attrs">
+<div class="line">- loginUsername: JTextField</div>
+<div class="line">- loginPassword: JPasswordField</div>
+<div class="line">- users: ArrayList&lt;User&gt;</div>
+<div class="line">- formCardLayout: CardLayout</div>
+<div class="line">- formContainer: JPanel</div>
+<div class="line">- tabLogin, tabRegister: JButton</div>
+</div>
+<div class="methods">
+<div class="line">+ LoginScreen()</div>
+<div class="line">+ refreshUsers(): void</div>
+<div class="line">- buildUI(): void</div>
+<div class="line">- buildBrandPanel(): JPanel</div>
+<div class="line">- buildFormPanel(): JPanel</div>
+<div class="line">- createTabButton(text, active): JButton</div>
+<div class="line">- switchTab(isLogin: boolean): void</div>
+<div class="line">- createLoginForm(): JPanel</div>
+<div class="line">- createRoundedField(placeholder): JTextField</div>
+<div class="line">- createRoundedPasswordField(placeholder): JPasswordField</div>
+<div class="line">- handleLogin(): void</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-head">RegisterScreen <span class="ext">extends JPanel</span></div>
+<div class="attrs">
+<div class="line">- loginScreen: LoginScreen</div>
+<div class="line">- usernameField, emailField, displayNameField: JTextField</div>
+<div class="line">- passwordField: JPasswordField</div>
+<div class="line">- clubCheckBox: JCheckBox</div>
+<div class="line">- verificationCode: int</div>
+</div>
+<div class="methods">
+<div class="line">+ RegisterScreen(loginScreen: LoginScreen)</div>
+<div class="line">- initComponents(): void</div>
+<div class="line">- handleRegister(): void</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-head">HomeScreen <span class="ext">extends JFrame</span></div>
+<div class="attrs">
+<div class="line">- cardLayout: CardLayout</div>
+<div class="line">- contentPanel: JPanel</div>
+<div class="line">- myProfilePanel, viewedProfilePanel: ProfilePanel</div>
+<div class="line">- profileStack: Stack&lt;User&gt;</div>
+</div>
+<div class="methods">
+<div class="line">+ HomeScreen()</div>
+<div class="line">- buildTopBar(): JPanel</div>
+<div class="line">- buildSideNav(): JPanel</div>
+<div class="line">- buildContent(): JPanel</div>
+<div class="line">- showPanel(panel, name): void</div>
+<div class="line">+ showFeed(): void</div>
+<div class="line">+ showMyProfile(): void</div>
+<div class="line">+ navigateToProfile(user: User): void</div>
+<div class="line">+ goBackFromProfile(): void</div>
+<div class="line">+ showEventDetail(event: Event): void</div>
+<div class="line">+ changeAttendance(event, status): void</div>
+<div class="line">+ addComment(event, text, parentId): void</div>
+<div class="line">+ followUser(target): void</div>
+<div class="line">+ unfollowUser(target): void</div>
+<div class="line">+ createEvent(event: Event): void</div>
+<div class="line">- createNavLink(text, active): JButton</div>
+<div class="line">- makeIconBtn(emoji): JButton</div>
+</div>
+</div>
+
+</div></div>
+
+<!-- PANELS -->
+<div class="pkg">
+<div class="pkg-title">panels</div>
+<div class="grid">
+
+<div class="card"><div class="card-head">FeedPanel <span class="ext">extends JPanel</span></div><div class="attrs"><div class="line">- home: HomeScreen</div><div class="line">- gridPanel: JPanel</div><div class="line">- currentFilter, currentSort: String</div></div><div class="methods"><div class="line">+ FeedPanel(home: HomeScreen)</div><div class="line">- buildUI(): void</div><div class="line">+ refreshGrid(): void</div><div class="line">- createCard(ev: Event): JPanel</div><div class="line">- createRecRow(ev, interests): JPanel</div><div class="line">- createSectionHeader(num, title, sub): JPanel</div><div class="line">- createPill(text, active): JButton</div><div class="line">- sortEvents(events): void</div><div class="line">- getFilteredEvents(): ArrayList&lt;Event&gt;</div><div class="line">- loadImage(path): BufferedImage</div></div></div>
+
+<div class="card"><div class="card-head">EventDetailPanel <span class="ext">extends JPanel</span></div><div class="attrs"><div class="line">- event: Event</div><div class="line">- homeScreen: HomeScreen</div></div><div class="methods"><div class="line">+ EventDetailPanel(event, homeScreen)</div><div class="line">- createBody(): JScrollPane</div><div class="line">- createProp(label, value): JPanel</div><div class="line">- buildAttendanceSection(): JPanel</div><div class="line">- createStatusBtn(text, color, selected): JButton</div><div class="line">- buildAttendeesSection(): JPanel</div><div class="line">- buildCommentsSection(): JPanel</div><div class="line">- createCommentRow(comment, indent): JPanel</div><div class="line">- createCommentInput(parentId): JPanel</div></div></div>
+
+<div class="card"><div class="card-head">ProfilePanel <span class="ext">extends JPanel</span></div><div class="attrs"><div class="line">- user: User</div><div class="line">- home: HomeScreen</div><div class="line">- isOtherUser: boolean</div></div><div class="methods"><div class="line">+ ProfilePanel(user, home, isOtherUser)</div><div class="line">- buildUI(): void</div><div class="line">- showFollowDialog(followers, following): void</div></div></div>
+
+<div class="card"><div class="card-head">CreateEventPanel <span class="ext">extends JPanel</span></div><div class="attrs"><div class="line">- home: HomeScreen</div><div class="line">- titleField, locationField, tagsField: JTextField</div><div class="line">- descArea: JTextArea</div><div class="line">- dayS, monthS, yearS, hourS, minS: JSpinner</div><div class="line">- capacitySpin, xpSpin: JSpinner</div><div class="line">- tierCombo: JComboBox&lt;String&gt;</div><div class="line">- imageLabel: JLabel</div><div class="line">- selectedImagePath: String</div></div><div class="methods"><div class="line">+ CreateEventPanel(home: HomeScreen)</div><div class="line">- buildUI(): void</div><div class="line">- createDateRow(now, withTime): JPanel</div><div class="line">- chooseImage(): void</div><div class="line">- handleCreate(): void</div><div class="line">- createFieldLabel(text): JLabel</div></div></div>
+
+<div class="card"><div class="card-head">CalendarPanel <span class="ext">extends JPanel</span></div><div class="attrs"><div class="line">- home: HomeScreen</div><div class="line">- currentMonth: YearMonth</div><div class="line">- calGrid: JPanel</div><div class="line">- monthLabel: JLabel</div></div><div class="methods"><div class="line">+ CalendarPanel(home: HomeScreen)</div><div class="line">- buildUI(): void</div><div class="line">- refreshCal(): void</div></div></div>
+
+<div class="card"><div class="card-head">DiscoverPanel <span class="ext">extends JPanel</span></div><div class="attrs"><div class="line">- home: HomeScreen</div></div><div class="methods"><div class="line">+ DiscoverPanel(home: HomeScreen)</div><div class="line">- buildUI(): void</div><div class="line">- createEventRow(ev: Event): JPanel</div></div></div>
+
+<div class="card"><div class="card-head">LeaderboardPanel <span class="ext">extends JPanel</span></div><div class="attrs"><div class="line">- home: HomeScreen</div></div><div class="methods"><div class="line">+ LeaderboardPanel(home: HomeScreen)</div><div class="line">- buildUI(): void</div><div class="line">- createRow(rank, u): JPanel</div></div></div>
+
+<div class="card"><div class="card-head">MessagingPanel <span class="ext">extends JPanel</span></div><div class="attrs"><div class="line">- home: HomeScreen</div><div class="line">- chatPanel: JPanel</div><div class="line">- msgField: JTextField</div><div class="line">- selectedUser: String</div><div class="line">- convList: JPanel</div></div><div class="methods"><div class="line">+ MessagingPanel(home: HomeScreen)</div><div class="line">- buildUI(): void</div><div class="line">- refreshConversations(): void</div><div class="line">- loadChat(): void</div><div class="line">- sendMessage(): void</div><div class="line">- newConversation(): void</div></div></div>
+
+<div class="card"><div class="card-head">NotificationsPanel <span class="ext">extends JPanel</span></div><div class="sep2"></div><div class="methods"><div class="line">+ NotificationsPanel(home: HomeScreen)</div></div></div>
+
+<div class="card"><div class="card-head">SearchPanel <span class="ext">extends JPanel</span></div><div class="attrs"><div class="line">- home: HomeScreen</div><div class="line">- searchField: JTextField</div><div class="line">- resultsPanel: JPanel</div></div><div class="methods"><div class="line">+ SearchPanel(home: HomeScreen)</div><div class="line">+ searchFor(query: String): void</div><div class="line">- buildUI(): void</div><div class="line">- performSearch(): void</div></div></div>
+
+<div class="card"><div class="card-head">UIHelper</div><div class="sep2"></div><div class="methods"><div class="line">+ createButton(text, bg, fg): JButton {static}</div><div class="line">+ createOutlineButton(text, color): JButton {static}</div><div class="line">+ createTagButton(text, color, selected): JButton {static}</div><div class="line">+ createLabel(text): JLabel {static}</div><div class="line">+ createSmallLabel(text): JLabel {static}</div><div class="line">+ createSectionLabel(text): JLabel {static}</div><div class="line">+ createPageTitle(text): JLabel {static}</div><div class="line">+ createSubtitle(text): JLabel {static}</div><div class="line">+ createBadgeLabel(text, bg, fg): JLabel {static}</div><div class="line">+ createStyledField(): JTextField {static}</div><div class="line">+ createStyledPasswordField(): JPasswordField {static}</div><div class="line">+ createPlaceholderField(placeholder): JTextField {static}</div><div class="line">+ getFieldText(field, placeholder): String {static}</div><div class="line">+ createCard(): JPanel {static}</div><div class="line">+ showError(parent, message): void {static}</div><div class="line">+ showSuccess(parent, message): void {static}</div><div class="line">+ showConfirm(parent, message): boolean {static}</div><div class="line">+ createAvatar(letter, color, size): JPanel {static}</div><div class="line">+ createClickableUsername(user, homeScreen): JLabel {static}</div><div class="line">+ createFullWidthGBC(): GridBagConstraints {static}</div><div class="line">+ createSeparator(): JSeparator {static}</div><div class="line">+ createFieldLabel(text): JLabel {static}</div><div class="line">+ createPagePanel(): JPanel {static}</div><div class="line">+ wrapInScroll(content): JScrollPane {static}</div></div></div>
+
+<div class="card"><div class="card-head">ForgotPasswordDialog <span class="ext">extends JDialog</span></div><div class="attrs"><div class="line">- emailField, codeField: JTextField</div><div class="line">- newPasswordField, confirmPasswordField: JPasswordField</div><div class="line">- btnSendCode, btnReset: JButton</div><div class="line">- codePanel: JPanel</div><div class="line">- verificationCode: int</div><div class="line">- targetEmail, targetUsername: String</div></div><div class="methods"><div class="line">+ ForgotPasswordDialog(parent: Window)</div><div class="line">- createHeader(): JPanel</div><div class="line">- createForm(): JPanel</div><div class="line">- handleSendCode(): void</div><div class="line">- handleReset(): void</div><div class="line">- findUsernameByEmail(email): String</div></div></div>
+
+<div class="card"><div class="card-head">InterestSelectionDialog <span class="ext">extends JDialog</span></div><div class="attrs"><div class="line">- confirmed: boolean</div><div class="line">- checkBoxes: ArrayList&lt;JCheckBox&gt;</div></div><div class="methods"><div class="line">+ InterestSelectionDialog(owner, currentInterests)</div><div class="line">- buildUI(current: ArrayList&lt;String&gt;): void</div><div class="line">+ isConfirmed(): boolean</div><div class="line">+ getSelectedInterests(): ArrayList&lt;String&gt;</div></div></div>
+
+</div></div>
+
+<!-- TOOLS -->
+<div class="pkg">
+<div class="pkg-title">tools</div>
+<div class="grid">
+
+<div class="card"><div class="card-head">PasswordUtil</div><div class="attrs"><div class="line">- random: SecureRandom {static final}</div></div><div class="methods"><div class="line">+ generateSalt(): String {static}</div><div class="line">+ hashPassword(password, salt): String {static}</div><div class="line">+ verifyPassword(password, storedHash, storedSalt): boolean {static}</div></div></div>
+
+<div class="card"><div class="card-head">PosterGenerator</div><div class="attrs"><div class="line">- WIDTH, HEIGHT: int {static final}</div><div class="line">- rand: Random {static final}</div><div class="line">- PASTELS: Color[] {static final}</div></div><div class="methods"><div class="line">- pickColor(tags): int {static}</div><div class="line">+ getColorForTags(tags): Color {static}</div><div class="line">+ getColorForEvent(eventId): Color {static}</div><div class="line">+ getCategoryEmoji(tags): String {static}</div><div class="line">+ generate(title, tags, dateStr, location, xp): String {static}</div><div class="line">+ generateDefault(ev: Event): String {static}</div></div></div>
+
+<div class="card"><div class="card-head">EmailSender</div><div class="attrs"><div class="line">- SENDER_EMAIL, SENDER_PASSWORD, SMTP_HOST: String {static}</div><div class="line">- SMTP_PORT: int {static}</div><div class="line">- random: Random {static final}</div></div><div class="methods"><div class="line">+ generateCode(): int {static}</div><div class="line">+ sendVerificationEmail(toEmail, code): boolean {static}</div><div class="line">+ sendPasswordResetEmail(toEmail, code): boolean {static}</div><div class="line">- sendEmail(toEmail, subject, body): boolean {static}</div></div></div>
+
+<div class="card"><div class="card-head">ExperienceSystem</div><div class="sep2"></div><div class="methods"><div class="line">+ getTierName(xp: int): String {static}</div><div class="line">+ getTierColor(xp: int): Color {static}</div><div class="line">+ getTierIndex(xp: int): int {static}</div></div></div>
+
+</div></div>
+
+<!-- RELATIONSHIPS -->
+<div class="rel-box">
+<h2>Relationships</h2>
+<div class="rel-line">ClubUser ──▷ User (extends)</div>
+<div class="rel-line">User ·····▷ Searchable (implements)</div>
+<div class="rel-line">Event ····▷ Searchable (implements)</div>
+<div class="rel-line">Event ◆──── Comment (composition, 1..*)</div>
+<div class="rel-line">Event ◆──── AttendanceStatus (composition, HashMap)</div>
+<div class="rel-line">HomeScreen ◆── FeedPanel, EventDetailPanel, ProfilePanel, CreateEventPanel, CalendarPanel, DiscoverPanel, LeaderboardPanel, MessagingPanel, NotificationsPanel, SearchPanel (composition)</div>
+<div class="rel-line">LoginScreen ◆── RegisterScreen (composition)</div>
+<div class="rel-line">Database ───→ User, Event, Comment (creates/queries)</div>
+<div class="rel-line">MainFile ───→ LoginScreen, HomeScreen (creates)</div>
+<div class="rel-line">UIHelper ···→ tüm paneller (utility dependency)</div>
+<div class="rel-line">AppConstants ···→ tüm sınıflar (utility dependency)</div>
+</div>
+
+</body>
+</html>
