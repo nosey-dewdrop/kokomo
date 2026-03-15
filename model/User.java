@@ -68,7 +68,7 @@ public class User implements Searchable {
     }
 
     /**
-     * Kolaylik constructor: salt otomatik uretilir, sifre hash'lenir.
+     * Convenience constructor: salt is auto-generated, password is hashed.
      */
     public User(String username, String displayName, String email,
                 String plainPassword, String bio) {
@@ -111,15 +111,15 @@ public class User implements Searchable {
     public int getXp()                             { return xp; }
 
     /**
-     * Kulup hesabi mi? Base User icin false.
-     * ClubUser override eder (polymorphism).
+     * Is this a club account? Returns false for base User.
+     * ClubUser overrides this (polymorphism).
      */
     public boolean isClub() {
         return false;
     }
 
     /**
-     * Profil badge'i. ClubUser override eder (polymorphism).
+     * Profile badge text. ClubUser overrides this (polymorphism).
      */
     public String getProfileBadge() {
         String badge = "@" + username;
@@ -147,7 +147,7 @@ public class User implements Searchable {
     public void setXp(int xp)                                    { this.xp = xp; }
 
     // ==========================================
-    // IS MANTIKLARI
+    // BUSINESS LOGIC
     // ==========================================
 
     public void addInterest(String interest) {
@@ -191,7 +191,7 @@ public class User implements Searchable {
     }
 
     /**
-     * Sifre dogrulama (hash karsilastirmasi).
+     * Password verification (hash comparison).
      */
     public boolean checkPassword(String plainPassword) {
         return PasswordUtil.verifyPassword(plainPassword, this.password, this.salt);
