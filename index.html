@@ -43,17 +43,17 @@ h1{font-size:16px;font-weight:700;text-align:center;margin-bottom:4px;text-trans
 .section-bar:hover{background:#ddd}
 .section-content{padding:4px 10px}
 .section-content.hidden{display:none}
-.line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:2px 0;cursor:pointer;border-radius:2px;padding-left:4px;margin:1px 0}
+.line{white-space:normal;word-break:break-word;padding:2px 0;cursor:pointer;border-radius:2px;padding-left:4px;margin:1px 0}
 .line:hover{background:#f0f0f0}
 .line.active{background:#f0f0f0}
 
 /* TOOLTIP */
 .tip{display:none;margin:2px 0 4px 0;padding:0 0 0 20px;font-size:10px;line-height:1.6;color:#555}
 .tip.show{display:block}
-.tip .tip-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tip .tip-line{white-space:normal;word-break:break-word}
 .tip .tip-line::before{content:'> ';color:#999}
 .tip .tip-uses-line::before{content:'> ';color:#999}
-.tip .tip-uses-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tip .tip-uses-line{white-space:normal;word-break:break-word}
 .tip .tip-uses-line span{color:#000;font-weight:700}
 
 .sep2{height:0;border-top:2px solid #000}
@@ -583,8 +583,6 @@ function toggleSection(el) {
 function toggleTip(el) {
   const tip = el.nextElementSibling;
   if(!tip || !tip.classList.contains('tip')) return;
-  // close other open tips
-  document.querySelectorAll('.tip.show').forEach(t => { if(t!==tip) t.classList.remove('show'); t.previousElementSibling.classList.remove('active'); });
   tip.classList.toggle('show');
   el.classList.toggle('active');
 }
