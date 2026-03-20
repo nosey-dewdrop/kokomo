@@ -58,6 +58,7 @@ leagueofbilkent-mvp/
 - Emir Selim
 - Ege
 - Osman
+- Evrim Mete
 
 ## License
 
