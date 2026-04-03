@@ -8,24 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-/*
- * ┌──────────────────────────────────────────────────────────────┐
- * │           <<class>> InterestSelectionDialog                 │
- * │                  extends JDialog                             │
- * │     Modal dialog for selecting interest categories          │
- * ├──────────────────────────────────────────────────────────────┤
- * │ - confirmed: boolean -> whether user clicked Confirm        │
- * │ - checkBoxes: ArrayList<JCheckBox>                          │
- * ├──────────────────────────────────────────────────────────────┤
- * │ + InterestSelectionDialog(owner, currentInterests)          │
- * │ + isConfirmed(): boolean                                    │
- * │ + getSelectedInterests(): ArrayList<String>                 │
- * │ - buildUI(current) -> checkbox grid from INTEREST_CATEGORIES│
- * ├──────────────────────────────────────────────────────────────┤
- * │ USES:    AppConstants (INTEREST_CATEGORIES), UIHelper        │
- * │ USED BY: RegisterScreen, ProfilePanel (edit interests)      │
- * └──────────────────────────────────────────────────────────────┘
- */
 public class InterestSelectionDialog extends JDialog {
 
     private boolean confirmed = false;
