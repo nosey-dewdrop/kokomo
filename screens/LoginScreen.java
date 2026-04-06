@@ -500,8 +500,8 @@ public class LoginScreen extends JFrame {
     }
 
     private void handleLogin() {
-        if (tools.NetworkManager.isClientMode && Database.customDbUrl == null) {
-            UIHelper.showError(this, "Host baglantisi bekleniyor...");
+        if (Database.databaseConnection == null) {
+            UIHelper.showError(this, "Database connection not available!");
             return;
         }
         String username = loginUsername.getText().trim().toLowerCase();

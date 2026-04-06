@@ -30,6 +30,11 @@ public class MainFile {
         }
 
         Database.createConnection();
+
+        // if remote host not found but local DB connected, keep working locally
+        if (Database.databaseConnection == null && Database.customDbUrl == null) {
+            Database.createConnection();
+        }
         if (Database.isDatabaseEmpty() && Database.customDbUrl == null) {
             SampleData.loadSampleData();
         }
