@@ -265,9 +265,9 @@ public class HomeScreen extends JFrame {
                     case "feed": showFeed(); break;
                     case "discover": showPanel(new DiscoverPanel(this), "discover"); break;
                     case "calendar": showPanel(new CalendarPanel(this), "calendar"); break;
-                    case "messages": 
-                        if (messagingPanel == null) messagingPanel = new MessagingPanel(HomeScreen.this);
-                        showPanel(messagingPanel, "messages"); 
+                    case "messages":
+                        messagingPanel.refreshConversations();
+                        showPanel(messagingPanel, "messages");
                         break;
                     case "leaderboard": showPanel(new LeaderboardPanel(this), "leaderboard"); break;
                     case "notif": showPanel(new NotificationsPanel(this), "notif"); break;
@@ -283,13 +283,14 @@ public class HomeScreen extends JFrame {
         cardLayout = new CardLayout();
         contentPanel = new JPanel(cardLayout);
         contentPanel.setBackground(AppConstants.BG_MAIN);
+        messagingPanel = new MessagingPanel(this);
         contentPanel.add(new FeedPanel(this), "feed");
         contentPanel.add(new SearchPanel(this), "search");
         contentPanel.add(new DiscoverPanel(this), "discover");
         contentPanel.add(new CalendarPanel(this), "calendar");
         contentPanel.add(new LeaderboardPanel(this), "leaderboard");
         contentPanel.add(new CreateEventPanel(this), "create");
-        contentPanel.add(new MessagingPanel(this), "messages");
+        contentPanel.add(messagingPanel, "messages");
         contentPanel.add(new NotificationsPanel(this), "notif");
         return contentPanel;
     }
