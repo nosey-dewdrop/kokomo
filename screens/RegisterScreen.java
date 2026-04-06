@@ -37,13 +37,16 @@ public class RegisterScreen extends JPanel {
 
     public RegisterScreen(LoginScreen loginScreen) {
         this.loginScreen = loginScreen;
-        setLayout(new GridBagLayout());
+        setLayout(new BorderLayout());
         setBackground(Color.WHITE);
-        setBorder(BorderFactory.createEmptyBorder(15, 50, 15, 50));
         initComponents();
     }
 
     private void initComponents() {
+        JPanel formPanel = new JPanel(new GridBagLayout());
+        formPanel.setBackground(Color.WHITE);
+        formPanel.setBorder(BorderFactory.createEmptyBorder(15, 50, 15, 50));
+
         GridBagConstraints gc = UIHelper.createFullWidthGBC();
 
         usernameField = UIHelper.createStyledField();
@@ -54,21 +57,27 @@ public class RegisterScreen extends JPanel {
         clubCheckBox.setFont(AppConstants.F_SMALL);
         clubCheckBox.setBackground(Color.WHITE);
 
-        gc.gridy = 0; add(UIHelper.createLabel("Username"), gc);
-        gc.gridy = 1; add(usernameField, gc);
-        gc.gridy = 2; add(UIHelper.createLabel("Display Name"), gc);
-        gc.gridy = 3; add(displayNameField, gc);
-        gc.gridy = 4; add(UIHelper.createLabel("Email (@bilkent.edu.tr)"), gc);
-        gc.gridy = 5; add(emailField, gc);
-        gc.gridy = 6; add(UIHelper.createLabel("Password"), gc);
-        gc.gridy = 7; add(passwordField, gc);
-        gc.gridy = 8; gc.insets = new Insets(8, 0, 3, 0); add(clubCheckBox, gc);
+        gc.gridy = 0; formPanel.add(UIHelper.createLabel("Username"), gc);
+        gc.gridy = 1; formPanel.add(usernameField, gc);
+        gc.gridy = 2; formPanel.add(UIHelper.createLabel("Display Name"), gc);
+        gc.gridy = 3; formPanel.add(displayNameField, gc);
+        gc.gridy = 4; formPanel.add(UIHelper.createLabel("Email (@bilkent.edu.tr)"), gc);
+        gc.gridy = 5; formPanel.add(emailField, gc);
+        gc.gridy = 6; formPanel.add(UIHelper.createLabel("Password"), gc);
+        gc.gridy = 7; formPanel.add(passwordField, gc);
+        gc.gridy = 8; gc.insets = new Insets(8, 0, 3, 0); formPanel.add(clubCheckBox, gc);
 
         JButton btnRegister = UIHelper.createButton("Register", AppConstants.ACCENT, Color.WHITE);
         gc.gridy = 9; gc.insets = new Insets(12, 0, 6, 0);
-        add(btnRegister, gc);
+        formPanel.add(btnRegister, gc);
 
         btnRegister.addActionListener(e -> handleRegister());
+
+        JScrollPane scrollPane = new JScrollPane(formPanel);
+        scrollPane.setBorder(null);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        add(scrollPane, BorderLayout.CENTER);
     }
 
     private void handleRegister() {
