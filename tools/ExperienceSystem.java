@@ -17,10 +17,18 @@ import java.awt.Color;
  * │ NOTE:    Thin wrapper, most code calls AppConstants directly │
  * └──────────────────────────────────────────────────────────────┘
  */
-public class ExperienceSystem {
 
-    public static String getTierName(int xp) { return AppConstants.getTierName(xp); }
-    public static Color getTierColor(int xp) { return AppConstants.getTierColor(xp); }
-    public static int getTierIndex(int xp)   { return AppConstants.getTierIndex(xp); }
+public class ExperienceSystem {
+    public static String getTierName(int xp){ 
+        return AppConstants.getTierName(xp); 
+    }
+    
+    public static Color getTierColor(int xp){
+        return AppConstants.getTierColor(xp); 
+    }
+
+    public static int getTierIndex(int xp){
+        return AppConstants.getTierIndex(xp); 
+    }
 
 }
